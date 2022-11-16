@@ -7,4 +7,11 @@ export const getProjects = async () => {
   return data;
 };
 
-// change timelog needs to be setup 
+export const deleteProject = async (id: string) => {
+  const { data } = await axios.delete(
+    `http://${import.meta.env.VITE_URL_KEY}/projects/${id}`
+  );
+  return;
+};
+
+// change timelog needs to be setup
