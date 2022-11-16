@@ -11,91 +11,65 @@
   ```
 
 ## Skills used for this project
+* WORK IN PROGRESS
 * React
-* React Context 
-* React Router-dom
-* React Reducer 
-* Chakra-ui
-* dayjs
-* timer-node 
-* .env
-* JavaScript
-* JSON 
+* Typescript
 * CSS
 * HTML 
 * Vite
 
 ## Requirements
 
-# Kunskapskontroll 1: Time-tracking-app
-
-## Choice of styling
-- Chakra-ui:\
- I've chosen chakra-ui as my styling choice for this assignment. I'm used to working with Boostrap and decided I wanted to try something new. At first, I was looking at render components but that would be too much code for my files. Chakra has the benefit of doing the styling "for" me, and I like that I dont have to think how big a button should be or build a navbar from scratch. 
-
-## Choice of packages
-- vite:\
-  I use Vite for creating my dev environment because I find it easy and lightweight to use versus npx-create-react-app. It has fewer "junk" files and comes with its own challenges. 
-- axios:\
-  Axios helps me to API calls with fewer lines of code. I don't need to declare JSON strings back and forth with my calls. 
-- uuid:\
-  Uuid generates IDs with a long unique string every time it's called on, and that helps me not to worry about having a dubbel of an ID in my code. 
-- react-input-color:\
-  React-input-color is a component that renders out a color box where the user can pick a color in different ways. It's used to set a color for a project so it's easier to tell them apart. 
-- husky / prettier / pretty-quick:\
-  Together with Prettier and Husky setup, I don't have to worry about formatting my code every time. Since I like to work with autosave I don't want formatting on save when I write code. But this makes it so that I have to format manually every time. These scripts do it form whenever code is committed. 
-- @chakra-ui/react / @emotion/react / @emotion/styled / frammer-motion @chakra-ui/icons / react-icons:\
-  All above are used for my styling which has been motivated above. 
-- dayjs:\
-  Dayjs is used to generate and transform date and time. It was very handy to have when I worked with the calendar and timer components. 
-- timmer-node:\
-  Timmer-node is used for starting and stopping timers. It helps create functions like start() and stop() so that I don't have to do it manually. 
+# Kunskapskontroll 2 - Invoice-dashboard
 
 ## En användare ska kunna:
-- Skapa ett projekt (X)
-- Skapa en task knuten till ett projekt (X)
-- Starta en tidtagning för en task (X)
-- Stoppa en tidtagning (X)
-- Se en lista på tidtagningar för ett specifikt datum (X)
-- Se en lista på projekt (X)
-- Se en lista på tasks (X)
-- Ta bort en tidtagning (X)
-- Ta bort en task (X)
-- Ta bort ett projekt (X)
-
-## Sidor som ska finnas:
-- Tidtagnings-sida (X)
-- Kalender/historik-sida (X)
-- Överblicks-sida (X)
+- Se en lista på tidtagningar de senaste 30 dagarna
+  (Har du byggt in dessa i tasks: tasks som loggat tid de senaste 30 dagarna) ()
+- Se en lista på alla tidtagningar ()
+- Se en lista på projekt ()
+- Se en lista på tasks ()
+- Ta bort en tidtagning ()
+- Ta bort en task ()
+- Ta bort ett projekt ()
+- Sätta ett timpris på ett projekt ()
+- Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla ()
+- Se en lista på "fakturor" och status ()
+- Se en överblicks-sida som visar: ()
+  - Antal projekt ()
+  - Antal tasks ()
+  - Antal "fakturor" ()
+  - Tid som loggats de senaste 30 dagarna ()
+  - Antalet kronor som fakturerats det senaste året ()
 
 ## För att uppnå Godkänt är kraven att:
-- Byggd med React som Frontend och json-server som "backend". (X)
+- Byggd med Typescript, React som Frontend och json-server. ()
 
-- Använda React Router som router i applikationen. (X)
+- Applikationen ska använda React Context som "Store" för applikations-bred data. ()
 
-- Applikationen ska använda React Context som "Store" för applikations-bred data. (X)
+- Samtliga krav under "En användare ska kunna" är uppfyllda. ()
 
-- Samtliga krav under "En användare ska kunna" är uppfyllda. (X)
+- En faktura ska innehålla ()
+  - Status (Ej betald, betald, försenad) ()
+  - Förfallodag (30 dagar från datumet vi skapade den) ()
+  - Summa (tid x projektets timpris) ()
+  - Kundens namn ()
 
-- Samtliga sidor under "Sidor som ska finnas" finns. (X)
+- Listorna ska vara presenterade som tabeller med följande kolumner: ()
+  - Tasks: Namn, Projektets namn ()
+  - Projekt: Namn, antal tasks ()
+  - Fakturor: Kund, status, förfallodatum, summa ()
 
-- Den ska vara byggd för en mobil-webbläsare i första hand (och behöver inte innehålla styling för desktop). (X)
+- Applikationen ska inte innehålla några "@ts-ignore", typfel och inga implicita any. ()
 
-- Innehålla en README.md där du redogjort för ditt (1) valda sätt att styla applikationen, samt samtliga npm-paket du valt att använda och varför. (Du kan exkludera React och React Router) (X)
+## För att uppnå Väl Godkänt är kraven att 2 av följande 4 är uppfyllda:
+- Applikationen ska inte heller innehålla några explicita any. ()
 
-- Den ska innehålla en "huvudnavigationsmeny" fixerad på botten på skärmen, som ska användas för att gå mellan de olika sidorna i applikationen (Tidtagning, kalender, överblick t.ex.). Om innehållet på sidan scrollar, ska den fortfarande vara fixerad på botten av applikationen. Den ska även visa vilken sida som är aktiv just nu på något vis. (X)
+- Kunna välja att avrunda tiden uppåt på tasks när man skapar en faktura till närmsta [1 min, 5 min, 15 min, 30 min, 1h].
+(Avrundningen ska ske på varje individuell task, inte på hela fakturan) ()
 
-- När man lägger till ett "projekt" eller en "task" ska detta göras på antingen en separat sida eller i till exempel en modal. (X)
+- Lägg till stöd för drag n drop för att ändra ordningen på överblicks-infon på överblicks-sidan.
+Samt att kunna visa/dölja info-delar på överblicks-sidan. ()
 
-- "Överblick"-sidan ska innehålla två "tabbar", en för projekt och en för tasks som man ska kunna växla mellan på sidan. (X)
-
-- Tiden som visas på tidtagnings-sidan ska "ticka upp" när den är aktiv.
-  (Alltså för varje sekund som går, ska den visa det på skärmen) (X)
-
-
-## För att uppnå Väl Godkänt är kraven att:
-- Kunna välja ett tidsspan istället för bara ett specifikt datum i Kalender/historiks-vyn. (Datum & Tid) (X)
-
-- Kunna skapa/välja en användare och tidtagning/tasks/projekt individuella för vald användare. (X)
-
-- Om en tidtagning är aktiv och sidan laddas om/stängs ner och öppnas upp senare, ska den återupptas och visa tiden från när den först startades. (X)
+- Skapa grafer på överblicks-infon för att visa: ()
+  - En "Line chart" som visar totala mängden tid som loggats de senaste 7 dagarna ()
+  - Valfri chart som visar beloppet som fakturerats i år (per månad) ()
