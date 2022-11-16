@@ -48,6 +48,8 @@
 
 - Samtliga krav under "En användare ska kunna" är uppfyllda. ()
 
+- Applikationen ska vara byggd med responsiv design i åtanke. ()
+
 - En faktura ska innehålla ()
   - Status (Ej betald, betald, försenad) ()
   - Förfallodag (30 dagar från datumet vi skapade den) ()
