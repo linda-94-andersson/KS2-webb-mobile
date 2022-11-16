@@ -4,9 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import Root from "./routes/Root";
 import ErrorPage from "./Error.page";
-import Calendar from "./routes/Calendar";
-import TimerRender from "./routes/TimerRender";
-import Overview from "./routes/Overview";
+import Dashboard from "./routes/Dashboard";
+import List from "./routes/List";
+import Invoice from "./routes/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -16,15 +16,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <TimerRender />,
+        element: <Dashboard />,
       },
       {
-        path: "calendar",
-        element: <Calendar />,
+        path: "lists",
+        element: <List />,
       },
       {
-        path: "overview",
-        element: <Overview />,
+        path: "invoice",
+        element: <Invoice />,
       },
     ],
   },

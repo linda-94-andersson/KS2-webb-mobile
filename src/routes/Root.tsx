@@ -2,15 +2,15 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import { ProjectProvider } from "../context/ProjectContext";
 import { TaskProvider } from "../context/TaskContext";
-import { TimeLogProvider } from "../context/TimeLogContext";
+import { TimeLogProvider } from "../context/TimelogContext";
 import { UserProvider } from "../context/UserContext";
-import { Link as ReachLink, Tabs, TabList, Tab } from "@chakra-ui/react";
+import { Tabs, TabList, Tab } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
-import { MdTimer } from "react-icons/md";
-import { AiOutlineCalendar } from "react-icons/ai";
-import { BiTask } from "react-icons/bi";
+import { AiOutlineDashboard } from "react-icons/ai";
+import { HiOutlineClipboardList } from "react-icons/hi";
+import { TbFileInvoice } from "react-icons/tb";
 
-function Root() {
+const Root = () => {
   return (
     <>
       <UserProvider>
@@ -31,18 +31,18 @@ function Root() {
                 <Tabs>
                   <TabList>
                     <Tab>
-                      <Link as={ReachLink} to={`/`}>
-                        <Icon as={MdTimer} w={75} h={75} />
+                      <Link to={`/`}>
+                        <Icon as={AiOutlineDashboard} w={75} h={75} />
                       </Link>
                     </Tab>
                     <Tab>
-                      <Link as={ReachLink} to={`calendar`}>
-                        <Icon as={AiOutlineCalendar} w={75} h={75} />
+                      <Link to={`lists`}>
+                        <Icon as={HiOutlineClipboardList} w={75} h={75} />
                       </Link>
                     </Tab>
                     <Tab>
-                      <Link as={ReachLink} to={`overview`}>
-                        <Icon as={BiTask} w={75} h={75} />
+                      <Link to={`invoice`}>
+                        <Icon as={TbFileInvoice} w={75} h={75} />
                       </Link>
                     </Tab>
                   </TabList>
@@ -54,6 +54,6 @@ function Root() {
       </UserProvider>
     </>
   );
-}
+};
 
 export default Root;
