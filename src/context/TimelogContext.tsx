@@ -3,50 +3,37 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useReducer,
   useState,
+  ReactNode,
 } from "react";
 import { getTimeLogs } from "../data/getTimeLogs";
 
-const TimelogContext = React.createContext();
-const TimelogDispatchContext = createContext(null);
+type Props = {
+  children: ReactNode;
+};
+
+type Timelog = {
+  id: string;
+  startTime: number;
+  endTime: number;
+  taskId: string;
+};
+
+type Value = {
+  timeLogValue: {
+    timeLogs: Timelog | null;
+  };
+  getTimeLogData: () => void;
+};
+
+const TimelogContext = createContext<Value | undefined>(undefined);
 
 export function useTimeLog() {
   return useContext(TimelogContext);
 }
 
-export function useTimeLogDispatch() {
-  return useContext(TimelogDispatchContext);
-}
-
-export function TimeLogProvider({ children }) {
-  const initialState = [];
-
+export function TimeLogProvider({ children }: Props) {
   const [timeLogs, setTimeLogs] = useState(null);
-  const [timelog, dispatchTimeLog] = useReducer(timeLogReducer, initialState);
-
-  function timeLogReducer(timeLogs, action) {
-    switch (action.type) {
-      case "added": {
-        return [...timeLogs, action.timelogs];
-      }
-      case "changed": {
-        return timeLogs.map((tl) => {
-          if (tl === action.timelogs) {
-            return action.timelogs;
-          } else {
-            return tl;
-          }
-        });
-      }
-      case "deleted": {
-        return timeLogs.filter((tl) => tl !== action);
-      }
-      default: {
-        return timeLogs;
-      }
-    }
-  }
 
   const timeLogValue = useMemo(
     () => ({ timeLogs, setTimeLogs }),
@@ -64,9 +51,7 @@ export function TimeLogProvider({ children }) {
 
   return (
     <TimelogContext.Provider value={{ timeLogValue, getTimeLogData }}>
-      <TimelogDispatchContext.Provider value={{ dispatchTimeLog }}>
-        {children}
-      </TimelogDispatchContext.Provider>
+      {children}
     </TimelogContext.Provider>
   );
 }

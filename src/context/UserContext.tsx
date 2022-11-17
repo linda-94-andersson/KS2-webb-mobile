@@ -4,49 +4,34 @@ import React, {
   useEffect,
   useContext,
   createContext,
-  useReducer,
+  ReactNode,
 } from "react";
 import { getUsers } from "../data/getUsers";
 
-const UserContext = React.createContext();
-const UserDispatchContext = createContext(null);
+type Props = {
+  children: ReactNode;
+};
+
+type User = {
+  id: string;
+  name: string;
+};
+
+type Value = {
+  userValue: {
+    users: User | null;
+  };
+  getUserData: () => void;
+};
+
+const UserContext = createContext<Value | undefined>(undefined);
 
 export function useUser() {
   return useContext(UserContext);
 }
 
-export function useUserDispatch() {
-  return useContext(UserDispatchContext);
-}
-
-export function UserProvider({ children }) {
-  const initialState = [];
-
+export function UserProvider({ children }: Props) {
   const [users, setUser] = useState(null);
-  const [user, dispatch] = useReducer(userReducer, initialState);
-
-  function userReducer(users, action) {
-    switch (action.type) {
-      case "added": {
-        return [...users, action.user];
-      }
-      case "changed": {
-        return users.map((u) => {
-          if (u.id === action.user.id) {
-            return action.user;
-          } else {
-            return u;
-          }
-        });
-      }
-      case "deleted": {
-        return users.filter((u) => u !== action);
-      }
-      default: {
-        return users;
-      }
-    }
-  }
 
   const userValue = useMemo(() => ({ users, setUser }), [users, setUser]);
 
@@ -61,9 +46,7 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider value={{ userValue, getUserData }}>
-      <UserDispatchContext.Provider value={{ dispatch }}>
-        {children}
-      </UserDispatchContext.Provider>
+      {children}
     </UserContext.Provider>
   );
 }

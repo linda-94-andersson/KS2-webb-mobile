@@ -3,50 +3,37 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useReducer,
   useState,
+  ReactNode,
 } from "react";
 import { getTasks } from "../data/getTasks";
 
-const TaskContext = React.createContext();
-const TaskDispatchContext = createContext(null);
+type Props = {
+  children: ReactNode;
+};
+
+type Task = {
+  id: string;
+  name: string;
+  createdDate: number;
+  projectId: string;
+};
+
+type Value = {
+  taskValue: {
+    tasks: Task | null;
+  };
+  getTaskData: () => void;
+};
+
+const TaskContext = createContext<Value | undefined>(undefined);
 
 export function useTask() {
   return useContext(TaskContext);
 }
 
-export function useTaskDispatch() {
-  return useContext(TaskDispatchContext);
-}
-
-export function TaskProvider({ children }) {
-  const initialState = [];
-
+export function TaskProvider({ children }: Props) {
   const [tasks, setTask] = useState(null);
-  const [task, dispatchTask] = useReducer(taskReducer, initialState);
-
-  function taskReducer(tasks, action) {
-    switch (action.type) {
-      case "added": {
-        return [...tasks, action.task];
-      }
-      case "changed": {
-        return tasks.map((t) => {
-          if (t.id === action.task.id) {
-            return action.task;
-          } else {
-            return t;
-          }
-        });
-      }
-      case "deleted": {
-        return tasks.filter((t) => t !== action);
-      }
-      default: {
-        return tasks;
-      }
-    }
-  }
 
   const taskValue = useMemo(() => ({ tasks, setTask }), [tasks, setTask]);
 
@@ -61,9 +48,7 @@ export function TaskProvider({ children }) {
 
   return (
     <TaskContext.Provider value={{ taskValue, getTaskData }}>
-      <TaskDispatchContext.Provider value={{ dispatchTask }}>
-        {children}
-      </TaskDispatchContext.Provider>
+      {children}
     </TaskContext.Provider>
   );
 }
