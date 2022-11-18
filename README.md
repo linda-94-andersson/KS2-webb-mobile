@@ -42,13 +42,13 @@
   - Antalet kronor som fakturerats det senaste året ()
 
 ## För att uppnå Godkänt är kraven att:
-- Byggd med Typescript, React som Frontend och json-server. ()
+- Byggd med Typescript, React som Frontend och json-server. (X)
 
-- Applikationen ska använda React Context som "Store" för applikations-bred data. ()
+- Applikationen ska använda React Context som "Store" för applikations-bred data. (X)
 
 - Samtliga krav under "En användare ska kunna" är uppfyllda. ()
 
-- Applikationen ska vara byggd med responsiv design i åtanke. ()
+- Applikationen ska vara byggd med responsiv design i åtanke. (X)
 
 - En faktura ska innehålla ()
   - Status (Ej betald, betald, försenad) ()
@@ -56,10 +56,10 @@
   - Summa (tid x projektets timpris) ()
   - Kundens namn ()
 
-- Listorna ska vara presenterade som tabeller med följande kolumner: ()
-  - Tasks: Namn, Projektets namn ()
-  - Projekt: Namn, antal tasks ()
-  - Fakturor: Kund, status, förfallodatum, summa ()
+- Listorna ska vara presenterade som tabeller med följande kolumner: (X)
+  - Tasks: Namn, Projektets namn (X)
+  - Projekt: Namn, antal tasks (X)
+  - Fakturor: Kund, status, förfallodatum, summa (X)
 
 - Applikationen ska inte innehålla några "@ts-ignore", typfel och inga implicita any. ()
 
