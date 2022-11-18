@@ -15,11 +15,26 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import { useTask } from "../../context/TaskContext";
+import { useProject } from "../../context/ProjectContext";
+
+type Task = {
+  id: string;
+  name: string;
+  projectId: string;
+};
+
+type Project = {
+  id: string;
+  name: string;
+};
 
 const TasksList = () => {
+  const { taskValue } = useTask();
+  const { projectValue } = useProject();
+
   return (
     <AccordionItem>
-      {" "}
       <h2>
         <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
           <Box flex="1" textAlign="left">
@@ -39,10 +54,16 @@ const TasksList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>TASKS NAME</Td>
-                <Td>PROJECT NAME</Td>
-              </Tr>
+              {taskValue.tasks &&
+                taskValue.tasks.map((t: Task) => (
+                  <Tr key={t.id}>
+                    <Td>{t.name}</Td>
+                    {projectValue.projects &&
+                      projectValue.projects
+                        .filter((p: Project) => p.id === t.projectId)
+                        .map((p: Project) => <Td key={p.id}>{p.name}</Td>)}
+                  </Tr>
+                ))}
             </Tbody>
             <Tfoot>
               <Tr>

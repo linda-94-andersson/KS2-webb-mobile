@@ -19,7 +19,6 @@ import {
 const InvoicesList = () => {
   return (
     <AccordionItem>
-      {" "}
       <h2>
         <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
           <Box flex="1" textAlign="left">
@@ -29,7 +28,6 @@ const InvoicesList = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        {" "}
         <TableContainer>
           <Table variant="simple">
             <TableCaption>Invoices</TableCaption>

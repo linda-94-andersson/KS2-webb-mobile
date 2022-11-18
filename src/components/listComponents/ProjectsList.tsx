@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { MdOutlineColorLens } from "react-icons/md";
 import { useProject } from "../../context/ProjectContext";
+import { useTask } from "../../context/TaskContext";
 
 type Project = {
   id: string;
@@ -25,12 +26,27 @@ type Project = {
   color: string;
 };
 
+type Task = {
+  id: string;
+  projectId: string;
+};
+
 const ProjectsList = () => {
   const { projectValue } = useProject();
+  const { taskValue } = useTask();
+
+  function objectLength(obj: {}) {
+    var result = 0;
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        result++;
+      }
+    }
+    return result;
+  }
 
   return (
     <AccordionItem>
-      {" "}
       <h2>
         <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
           <Box flex="1" textAlign="left">
@@ -40,7 +56,6 @@ const ProjectsList = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        {" "}
         <TableContainer>
           <Table variant="simple">
             <TableCaption>Projects</TableCaption>
@@ -48,7 +63,7 @@ const ProjectsList = () => {
               <Tr>
                 <Th>Name</Th>
                 <Th>
-                  <Icon as={MdOutlineColorLens} w={15} h={15} />
+                  <Icon as={MdOutlineColorLens} w={25} h={25} />
                 </Th>
                 <Th>Amount of tasks</Th>
               </Tr>
@@ -68,7 +83,13 @@ const ProjectsList = () => {
                         }}
                       />
                     </Td>
-                    <Td>TASKS AMOUNT</Td>
+                    {/* Work in progress, only show one number with amount of task in the project */}
+                    {taskValue.tasks &&
+                      taskValue.tasks
+                        .filter((t: Task) => t.projectId === p.id)
+                        .map((t: Task) => (
+                          <Td key={t.id}>{objectLength(t)}</Td>
+                        ))}
                   </Tr>
                 ))}
             </Tbody>
@@ -76,7 +97,7 @@ const ProjectsList = () => {
               <Tr>
                 <Th>Name</Th>
                 <Th>
-                  <Icon as={MdOutlineColorLens} w={15} h={15} />
+                  <Icon as={MdOutlineColorLens} w={25} h={25} />
                 </Th>
                 <Th>Amount of tasks</Th>
               </Tr>

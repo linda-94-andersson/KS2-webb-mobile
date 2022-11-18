@@ -14,12 +14,46 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Icon,
 } from "@chakra-ui/react";
+import { useTimeLog } from "../../context/TimelogContext";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import duration from "dayjs/plugin/duration";
+import { useTask } from "../../context/TaskContext";
+import { MdOutlineColorLens } from "react-icons/md";
+import { useProject } from "../../context/ProjectContext";
+
+type Timelog = {
+  id: string;
+  startTime: number;
+  endTime: number;
+  taskId: string;
+};
+
+type Task = {
+  id: string;
+  name: string;
+  createdDate: number;
+  projectId: string;
+};
+
+type Project = {
+  id: string;
+  name: string;
+  color: string;
+};
+
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
 
 const TimelogsList = () => {
+  const { timeLogValue } = useTimeLog();
+  const { taskValue } = useTask();
+  const { projectValue } = useProject();
+
   return (
     <AccordionItem>
-      {" "}
       <h2>
         <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
           <Box flex="1" textAlign="left">
@@ -36,20 +70,49 @@ const TimelogsList = () => {
               <Tr>
                 <Th>Task name</Th>
                 <Th>Start time</Th>
+                <Th>
+                  <Icon as={MdOutlineColorLens} w={25} h={25} />
+                </Th>
                 <Th>Stop time</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              <Tr>
-                <Td>TASKS NAME</Td>
-                <Td>START TIME</Td>
-                <Td>STOP TIME</Td>
-              </Tr>
-            </Tbody>
+            {timeLogValue.timeLogs &&
+              timeLogValue.timeLogs.map((tl: Timelog) => (
+                <Tbody key={tl.id}>
+                  {taskValue.tasks &&
+                    taskValue.tasks
+                      .filter((t: Task) => t.id === tl.taskId)
+                      .map((t: Task) => (
+                        <Tr key={t.id}>
+                          <Td>{t.name}</Td>
+                          <Td>{dayjs(tl.startTime).format("HH:mm:ss")}</Td>
+                          {projectValue.projects &&
+                            projectValue.projects
+                              .filter((p: Project) => p.id === t.projectId)
+                              .map((p: Project) => (
+                                <Td key={p.id}>
+                                  <Icon
+                                    as={MdOutlineColorLens}
+                                    w={25}
+                                    h={25}
+                                    style={{
+                                      backgroundColor: p.color,
+                                    }}
+                                  />
+                                </Td>
+                              ))}
+                          <Td>{dayjs(tl.endTime).format("HH:mm:ss")}</Td>
+                        </Tr>
+                      ))}
+                </Tbody>
+              ))}
             <Tfoot>
               <Tr>
                 <Th>Task name</Th>
                 <Th>Start time</Th>
+                <Th>
+                  <Icon as={MdOutlineColorLens} w={25} h={25} />
+                </Th>
                 <Th>Stop time</Th>
               </Tr>
             </Tfoot>
