@@ -21,7 +21,7 @@ type User = {
 type Value = {
   userValue: {
     users: User | undefined;
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+    setUsers: React.Dispatch<React.SetStateAction<User | undefined>>;
   };
   getUserData: () => Promise<void>;
 };
@@ -39,13 +39,13 @@ export const useUser = () => {
 };
 
 export function UserProvider({ children }: Props) {
-  const [users, setUser] = useState<User | undefined>();
+  const [users, setUsers] = useState<User | undefined>();
 
-  const userValue = useMemo(() => ({ users, setUser }), [users, setUser]);
+  const userValue = useMemo(() => ({ users, setUsers }), [users, setUsers]);
 
   const getUserData = async () => {
     const data: User = await getUsers();
-    setUser(data);
+    setUsers(data);
   };
 
   useEffect(() => {
