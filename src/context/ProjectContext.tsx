@@ -19,6 +19,7 @@ type Project = {
   userId: string;
   hourly_rate?: number;
   map: Function;
+  filter: Function;
 };
 
 type Value = {
@@ -35,7 +36,7 @@ export const useProject = () => {
   const context = useContext(ProjectContext);
 
   if (context === undefined) {
-    throw new Error("useAuthContext must be used inside AuthContext");
+    throw new Error("useContext must be used inside Context");
   }
 
   return context;
@@ -50,7 +51,7 @@ export function ProjectProvider({ children }: Props) {
   );
 
   const getProjectData = async () => {
-    const data: Project = await getProjects();
+    const data = await getProjects();
     setProjects(data);
   };
 

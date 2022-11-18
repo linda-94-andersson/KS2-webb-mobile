@@ -32,7 +32,7 @@ export const useUser = () => {
   const context = useContext(UserContext);
 
   if (context === undefined) {
-    throw new Error("useAuthContext must be used inside AuthContext");
+    throw new Error("useContext must be used inside Context");
   }
 
   return context;
@@ -44,7 +44,7 @@ export function UserProvider({ children }: Props) {
   const userValue = useMemo(() => ({ users, setUsers }), [users, setUsers]);
 
   const getUserData = async () => {
-    const data: User = await getUsers();
+    const data = await getUsers();
     setUsers(data);
   };
 

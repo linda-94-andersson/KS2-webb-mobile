@@ -17,29 +17,38 @@ type Task = {
   name: string;
   createdDate: number;
   projectId: string;
+  filter: Function;
+  map: Function;
 };
 
 type Value = {
   taskValue: {
-    tasks: Task | null;
+    tasks: Task | undefined;
+    setTasks: React.Dispatch<React.SetStateAction<Task | undefined>>;
   };
   getTaskData: () => void;
 };
 
 const TaskContext = createContext<Value | undefined>(undefined);
 
-export function useTask() {
-  return useContext(TaskContext);
-}
+export const useTask = () => {
+  const context = useContext(TaskContext);
+
+  if (context === undefined) {
+    throw new Error("useContext must be used inside Context");
+  }
+
+  return context;
+};
 
 export function TaskProvider({ children }: Props) {
-  const [tasks, setTask] = useState(null);
+  const [tasks, setTasks] = useState<Task | undefined>();
 
-  const taskValue = useMemo(() => ({ tasks, setTask }), [tasks, setTask]);
+  const taskValue = useMemo(() => ({ tasks, setTasks }), [tasks, setTasks]);
 
   const getTaskData = async () => {
     const data = await getTasks();
-    setTask(data);
+    setTasks(data);
   };
 
   useEffect(() => {

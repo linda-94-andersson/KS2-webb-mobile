@@ -17,23 +17,31 @@ type Timelog = {
   startTime: number;
   endTime: number;
   taskId: string;
+  map: Function;
 };
 
 type Value = {
   timeLogValue: {
-    timeLogs: Timelog | null;
+    timeLogs: Timelog | undefined;
+    setTimeLogs: React.Dispatch<React.SetStateAction<Timelog | undefined>>;
   };
   getTimeLogData: () => void;
 };
 
 const TimelogContext = createContext<Value | undefined>(undefined);
 
-export function useTimeLog() {
-  return useContext(TimelogContext);
-}
+export const useTimeLog = () => {
+  const context = useContext(TimelogContext);
+
+  if (context === undefined) {
+    throw new Error("useContext must be used inside Context");
+  }
+
+  return context;
+};
 
 export function TimeLogProvider({ children }: Props) {
-  const [timeLogs, setTimeLogs] = useState(null);
+  const [timeLogs, setTimeLogs] = useState<Timelog | undefined>();
 
   const timeLogValue = useMemo(
     () => ({ timeLogs, setTimeLogs }),
