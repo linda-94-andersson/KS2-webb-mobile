@@ -28,9 +28,9 @@
 - Se en lista på alla tidtagningar (X)
 - Se en lista på projekt ()
 - Se en lista på tasks (X)
-- Ta bort en tidtagning ()
-- Ta bort en task ()
-- Ta bort ett projekt ()
+- Ta bort en tidtagning (X)
+- Ta bort en task (X)
+- Ta bort ett projekt (X)
 - Sätta ett timpris på ett projekt ()
 - Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla ()
 - Se en lista på "fakturor" och status ()
@@ -61,7 +61,7 @@
   - Projekt: Namn, antal tasks (X)
   - Fakturor: Kund, status, förfallodatum, summa (X)
 
-- Applikationen ska inte innehålla några "@ts-ignore", typfel och inga implicita any. ()
+- Applikationen ska inte innehålla några "@ts-ignore", typfel och inga implicita any. (X)
 
 ## För att uppnå Väl Godkänt är kraven att 2 av följande 4 är uppfyllda:
 - Applikationen ska inte heller innehålla några explicita any. ()
