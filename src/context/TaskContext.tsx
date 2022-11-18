@@ -26,7 +26,7 @@ type Value = {
     tasks: Task | undefined;
     setTasks: React.Dispatch<React.SetStateAction<Task | undefined>>;
   };
-  getTaskData: () => void;
+  getTaskData: () => Promise<void>;
 };
 
 const TaskContext = createContext<Value | undefined>(undefined);

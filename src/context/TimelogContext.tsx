@@ -25,7 +25,7 @@ type Value = {
     timeLogs: Timelog | undefined;
     setTimeLogs: React.Dispatch<React.SetStateAction<Timelog | undefined>>;
   };
-  getTimeLogData: () => void;
+  getTimeLogData: () => Promise<void>;
 };
 
 const TimelogContext = createContext<Value | undefined>(undefined);
