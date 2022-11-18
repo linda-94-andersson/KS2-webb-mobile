@@ -10,7 +10,6 @@ type Project = {
   filter: Function;
 };
 
-
 export const getProjects = async () => {
   const { data } = await axios.get<Project>(
     `http://${import.meta.env.VITE_URL_KEY}/projects`
@@ -25,4 +24,14 @@ export const deleteProject = async (id: string) => {
   return;
 };
 
-// change timelog needs to be setup
+export const changeProject = async (id: Project, hourly_rate: Project) => {
+  const { data } = await axios.request<Project>({
+    method: "patch",
+    url: `http://${import.meta.env.VITE_URL_KEY}/projects/${id}`,
+    data: {
+      id: id,
+      hourly_rate: hourly_rate,
+    },
+  });
+  return data;
+};
