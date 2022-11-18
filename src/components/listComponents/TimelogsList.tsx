@@ -15,6 +15,7 @@ import {
   TableCaption,
   TableContainer,
   Icon,
+  Button,
 } from "@chakra-ui/react";
 import { useTimeLog } from "../../context/TimelogContext";
 import dayjs from "dayjs";
@@ -23,6 +24,8 @@ import duration from "dayjs/plugin/duration";
 import { useTask } from "../../context/TaskContext";
 import { MdOutlineColorLens } from "react-icons/md";
 import { useProject } from "../../context/ProjectContext";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import { deleteTimeLogs } from "../../data/getTimeLogs";
 
 type Timelog = {
   id: string;
@@ -48,9 +51,14 @@ dayjs.extend(customParseFormat);
 dayjs.extend(duration);
 
 const TimelogsList = () => {
-  const { timeLogValue } = useTimeLog();
+  const { timeLogValue, getTimeLogData } = useTimeLog();
   const { taskValue } = useTask();
   const { projectValue } = useProject();
+
+  const handleDelete = async (id: string) => {
+    const data = await deleteTimeLogs(id);
+    await getTimeLogData();
+  };
 
   return (
     <AccordionItem>
@@ -85,7 +93,15 @@ const TimelogsList = () => {
                       .map((t: Task) => (
                         <Tr key={t.id}>
                           <Td>{t.name}</Td>
-                          <Td>{dayjs(tl.startTime).format("HH:mm:ss")}</Td>
+                          <Td>
+                            {dayjs(tl.startTime).format("HH:mm:ss")}{" "}
+                            <Button
+                              variant="link"
+                              onClick={() => handleDelete(tl.id)}
+                            >
+                              <Icon as={RiDeleteBack2Line} w={25} h={25} />
+                            </Button>
+                          </Td>
                           {projectValue.projects &&
                             projectValue.projects
                               .filter((p: Project) => p.id === t.projectId)
