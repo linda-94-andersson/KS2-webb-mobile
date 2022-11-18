@@ -17,33 +17,41 @@ type Project = {
   name: string;
   color: string;
   userId: string;
-  prize?: number;
+  hourly_rate?: number;
+  map: Function;
 };
 
 type Value = {
   projectValue: {
-    projects: Project | null;
+    projects: Project | undefined;
+    setProjects: React.Dispatch<React.SetStateAction<Project | undefined>>;
   };
-  getProjectData: () => void;
+  getProjectData: () => Promise<void>;
 };
 
 const ProjectContext = createContext<Value | undefined>(undefined);
 
-export function useProject() {
-  return useContext(ProjectContext);
-}
+export const useProject = () => {
+  const context = useContext(ProjectContext);
+
+  if (context === undefined) {
+    throw new Error("useAuthContext must be used inside AuthContext");
+  }
+
+  return context;
+};
 
 export function ProjectProvider({ children }: Props) {
-  const [projects, setProject] = useState(null);
+  const [projects, setProjects] = useState<Project | undefined>();
 
   const projectValue = useMemo(
-    () => ({ projects, setProject }),
-    [projects, setProject]
+    () => ({ projects, setProjects }),
+    [projects, setProjects]
   );
 
   const getProjectData = async () => {
-    const data = await getProjects();
-    setProject(data);
+    const data: Project = await getProjects();
+    setProjects(data);
   };
 
   useEffect(() => {
