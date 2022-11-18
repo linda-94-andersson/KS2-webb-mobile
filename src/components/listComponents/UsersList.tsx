@@ -15,8 +15,16 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import { useUser } from "../../context/UserContext";
+
+type User = {
+  id: string;
+  name: string;
+};
 
 const UsersList = () => {
+  const { userValue } = useUser();
+
   return (
     <AccordionItem>
       <h2>
@@ -37,9 +45,12 @@ const UsersList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>USERS HERE</Td>
-              </Tr>
+              {userValue.users &&
+                userValue.users.map((u: User) => (
+                  <Tr key={u.id}>
+                    <Td>{u.name}</Td>
+                  </Tr>
+                ))}
             </Tbody>
             <Tfoot>
               <Tr>
