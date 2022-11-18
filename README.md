@@ -25,9 +25,9 @@
 ## En användare ska kunna:
 - Se en lista på tidtagningar de senaste 30 dagarna
   (Har du byggt in dessa i tasks: tasks som loggat tid de senaste 30 dagarna) ()
-- Se en lista på alla tidtagningar ()
+- Se en lista på alla tidtagningar (X)
 - Se en lista på projekt ()
-- Se en lista på tasks ()
+- Se en lista på tasks (X)
 - Ta bort en tidtagning ()
 - Ta bort en task ()
 - Ta bort ett projekt ()
