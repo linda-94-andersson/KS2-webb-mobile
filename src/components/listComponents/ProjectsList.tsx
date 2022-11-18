@@ -15,10 +15,14 @@ import {
   TableCaption,
   TableContainer,
   Icon,
+  Button,
 } from "@chakra-ui/react";
 import { MdOutlineColorLens } from "react-icons/md";
 import { useProject } from "../../context/ProjectContext";
 import { useTask } from "../../context/TaskContext";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import { deleteProject } from "../../data/getProjects";
+import { useTimeLog } from "../../context/TimelogContext";
 
 type Project = {
   id: string;
@@ -32,8 +36,16 @@ type Task = {
 };
 
 const ProjectsList = () => {
-  const { projectValue } = useProject();
-  const { taskValue } = useTask();
+  const { projectValue, getProjectData } = useProject();
+  const { taskValue, getTaskData } = useTask();
+  const { getTimeLogData } = useTimeLog();
+
+  const handleDelete = async (id: string) => {
+    const data = await deleteProject(id);
+    await getProjectData();
+    await getTaskData();
+    await getTimeLogData();
+  };
 
   function objectLength(obj: {}) {
     var result = 0;
@@ -72,7 +84,12 @@ const ProjectsList = () => {
               {projectValue.projects &&
                 projectValue.projects.map((p: Project) => (
                   <Tr key={p.id}>
-                    <Td>{p.name}</Td>
+                    <Td>
+                      {p.name}
+                      <Button variant="link" onClick={() => handleDelete(p.id)}>
+                        <Icon as={RiDeleteBack2Line} w={25} h={25} />
+                      </Button>
+                    </Td>
                     <Td>
                       <Icon
                         as={MdOutlineColorLens}
@@ -88,7 +105,7 @@ const ProjectsList = () => {
                       taskValue.tasks
                         .filter((t: Task) => t.projectId === p.id)
                         .map((t: Task) => (
-                          <Td key={t.id}>{objectLength(t)}</Td>
+                          <Td key={t.id}>{objectLength(t) ? objectLength(t) : 0}</Td>
                         ))}
                   </Tr>
                 ))}
