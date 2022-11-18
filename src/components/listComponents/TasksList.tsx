@@ -14,9 +14,14 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Button,
+  Icon,
 } from "@chakra-ui/react";
 import { useTask } from "../../context/TaskContext";
 import { useProject } from "../../context/ProjectContext";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import { deleteTask } from "../../data/getTasks";
+import { useTimeLog } from "../../context/TimelogContext";
 
 type Task = {
   id: string;
@@ -30,8 +35,15 @@ type Project = {
 };
 
 const TasksList = () => {
-  const { taskValue } = useTask();
+  const { taskValue, getTaskData } = useTask();
   const { projectValue } = useProject();
+  const { getTimeLogData } = useTimeLog();
+
+  const handleDelete = async (id: string) => {
+    const data = await deleteTask(id);
+    await getTaskData();
+    await getTimeLogData();
+  };
 
   return (
     <AccordionItem>
@@ -57,7 +69,12 @@ const TasksList = () => {
               {taskValue.tasks &&
                 taskValue.tasks.map((t: Task) => (
                   <Tr key={t.id}>
-                    <Td>{t.name}</Td>
+                    <Td>
+                      {t.name}{" "}
+                      <Button variant="link" onClick={() => handleDelete(t.id)}>
+                        <Icon as={RiDeleteBack2Line} w={25} h={25} />
+                      </Button>
+                    </Td>
                     {projectValue.projects &&
                       projectValue.projects
                         .filter((p: Project) => p.id === t.projectId)
