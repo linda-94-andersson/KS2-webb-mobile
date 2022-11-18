@@ -14,9 +14,20 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Icon,
 } from "@chakra-ui/react";
+import { MdOutlineColorLens } from "react-icons/md";
+import { useProject } from "../../context/ProjectContext";
+
+type Project = {
+  id: string;
+  name: string;
+  color: string;
+};
 
 const ProjectsList = () => {
+  const { projectValue } = useProject();
+
   return (
     <AccordionItem>
       {" "}
@@ -36,18 +47,37 @@ const ProjectsList = () => {
             <Thead>
               <Tr>
                 <Th>Name</Th>
+                <Th>
+                  <Icon as={MdOutlineColorLens} w={15} h={15} />
+                </Th>
                 <Th>Amount of tasks</Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>PROJECTS NAME</Td>
-                <Td>TASKS AMOUNT</Td>
-              </Tr>
+              {projectValue.projects &&
+                projectValue.projects.map((p: Project) => (
+                  <Tr key={p.id}>
+                    <Td>{p.name}</Td>
+                    <Td>
+                      <Icon
+                        as={MdOutlineColorLens}
+                        w={25}
+                        h={25}
+                        style={{
+                          backgroundColor: p.color,
+                        }}
+                      />
+                    </Td>
+                    <Td>TASKS AMOUNT</Td>
+                  </Tr>
+                ))}
             </Tbody>
             <Tfoot>
               <Tr>
                 <Th>Name</Th>
+                <Th>
+                  <Icon as={MdOutlineColorLens} w={15} h={15} />
+                </Th>
                 <Th>Amount of tasks</Th>
               </Tr>
             </Tfoot>
