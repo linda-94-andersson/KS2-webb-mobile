@@ -14,8 +14,15 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Button,
+  Icon,
 } from "@chakra-ui/react";
 import { useUser } from "../../context/UserContext";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import { deleteUser } from "../../data/getUsers";
+import { useProject } from "../../context/ProjectContext";
+import { useTask } from "../../context/TaskContext";
+import { useTimeLog } from "../../context/TimelogContext";
 
 type User = {
   id: string;
@@ -23,7 +30,18 @@ type User = {
 };
 
 const UsersList = () => {
-  const { userValue } = useUser();
+  const { userValue, getUserData } = useUser();
+  const { getProjectData } = useProject();
+  const { getTaskData } = useTask();
+  const { getTimeLogData } = useTimeLog();
+
+  const handleDelete = async (id: string) => {
+    const data = await deleteUser(id);
+    await getUserData();
+    await getProjectData();
+    await getTaskData();
+    await getTimeLogData();
+  };
 
   return (
     <AccordionItem>
@@ -48,7 +66,12 @@ const UsersList = () => {
               {userValue.users &&
                 userValue.users.map((u: User) => (
                   <Tr key={u.id}>
-                    <Td>{u.name}</Td>
+                    <Td>
+                      {u.name}
+                      <Button variant="link" onClick={() => handleDelete(u.id)}>
+                        <Icon as={RiDeleteBack2Line} w={25} h={25} />
+                      </Button>
+                    </Td>
                   </Tr>
                 ))}
             </Tbody>
