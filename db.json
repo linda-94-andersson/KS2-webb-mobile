@@ -110,5 +110,15 @@
       "endTime": 1668588659679,
       "taskId": "92ccfe1d-b48f-425c-b04c-3e6e0f7dd95c"
     }
+  ],
+  "invoices": [
+    {
+      "id": "b875f6db-1c40-44ce-8f49-6da90e3af37c",
+      "status": "Unpaid",
+      "due_date": 1671459166320,
+      "sum": 100,
+      "customer_name": "Linda",
+      "created_date": 1668867170218
+    }
   ]
 }
