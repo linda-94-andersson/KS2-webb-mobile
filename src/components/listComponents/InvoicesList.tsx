@@ -15,8 +15,25 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import duration from "dayjs/plugin/duration";
+import { useInvoice } from "../../context/InvoiceContext";
+
+type Invoice = {
+  id: string;
+  status: string;
+  due_date: number;
+  sum: number;
+  customer_name: string;
+};
+
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
 
 const InvoicesList = () => {
+  const { invoiceValue } = useInvoice();
+
   return (
     <AccordionItem>
       <h2>
@@ -40,12 +57,15 @@ const InvoicesList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>CUSTOMER NAME</Td>
-                <Td>STATUS</Td>
-                <Td>DUE DATE</Td>
-                <Td>SUM</Td>
-              </Tr>
+              {invoiceValue.invoices &&
+                invoiceValue.invoices.map((i: Invoice) => (
+                  <Tr key={i.id}>
+                    <Td>{i.customer_name}</Td>
+                    <Td>{i.status}</Td>
+                    <Td>{dayjs(i.due_date).format("YYYY-MM-DD")}</Td>
+                    <Td>{i.sum}</Td>
+                  </Tr>
+                ))}
             </Tbody>
             <Tfoot>
               <Tr>
