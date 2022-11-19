@@ -47,16 +47,6 @@ const ProjectsList = () => {
     await getTimeLogData();
   };
 
-  function objectLength(obj: {}) {
-    var result = 0;
-    for (var prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        result++;
-      }
-    }
-    return result;
-  }
-
   return (
     <AccordionItem>
       <h2>
@@ -100,13 +90,13 @@ const ProjectsList = () => {
                         }}
                       />
                     </Td>
-                    {/* Work in progress, only show one number with amount of task in the project */}
-                    {taskValue.tasks &&
-                      taskValue.tasks
-                        .filter((t: Task) => t.projectId === p.id)
-                        .map((t: Task) => (
-                          <Td key={t.id}>{objectLength(t) ? objectLength(t) : 0}</Td>
-                        ))}
+                    <Td>
+                      {
+                        taskValue.tasks?.filter(
+                          (t: Task) => t.projectId === p.id
+                        ).length
+                      }
+                    </Td>
                   </Tr>
                 ))}
             </Tbody>
