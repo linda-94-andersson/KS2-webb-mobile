@@ -149,6 +149,7 @@ const Invoice = () => {
             onChange={handleSelectedTask}
           >
             <option value="">Pick a task</option>
+            {/* Chould be more than just one task? */}
             {taskValue.tasks ? (
               taskValue.tasks
                 .filter((t: Task) => t.projectId === selectedProject)
