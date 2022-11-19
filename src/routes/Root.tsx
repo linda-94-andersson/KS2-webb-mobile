@@ -9,6 +9,7 @@ import { Icon } from "@chakra-ui/icons";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { TbFileInvoice } from "react-icons/tb";
+import { InvoiceProvider } from "../context/InvoiceContext";
 
 const Root = () => {
   return (
@@ -17,37 +18,39 @@ const Root = () => {
         <ProjectProvider>
           <TaskProvider>
             <TimeLogProvider>
-              <Outlet />
-              <footer
-                style={{
-                  position: "fixed",
-                  bottom: 0,
-                  paddingLeft: 25,
-                  width: "100%",
-                  backgroundColor: "white",
-                  zIndex: 2,
-                }}
-              >
-                <Tabs>
-                  <TabList>
-                    <Tab>
-                      <Link to={`/`}>
-                        <Icon as={AiOutlineDashboard} w={75} h={75} />
-                      </Link>
-                    </Tab>
-                    <Tab>
-                      <Link to={`lists`}>
-                        <Icon as={HiOutlineClipboardList} w={75} h={75} />
-                      </Link>
-                    </Tab>
-                    <Tab>
-                      <Link to={`invoice`}>
-                        <Icon as={TbFileInvoice} w={75} h={75} />
-                      </Link>
-                    </Tab>
-                  </TabList>
-                </Tabs>
-              </footer>
+              <InvoiceProvider>
+                <Outlet />
+                <footer
+                  style={{
+                    position: "fixed",
+                    bottom: 0,
+                    paddingLeft: 25,
+                    width: "100%",
+                    backgroundColor: "white",
+                    zIndex: 2,
+                  }}
+                >
+                  <Tabs>
+                    <TabList>
+                      <Tab>
+                        <Link to={`/`}>
+                          <Icon as={AiOutlineDashboard} w={75} h={75} />
+                        </Link>
+                      </Tab>
+                      <Tab>
+                        <Link to={`lists`}>
+                          <Icon as={HiOutlineClipboardList} w={75} h={75} />
+                        </Link>
+                      </Tab>
+                      <Tab>
+                        <Link to={`invoice`}>
+                          <Icon as={TbFileInvoice} w={75} h={75} />
+                        </Link>
+                      </Tab>
+                    </TabList>
+                  </Tabs>
+                </footer>
+              </InvoiceProvider>
             </TimeLogProvider>
           </TaskProvider>
         </ProjectProvider>
