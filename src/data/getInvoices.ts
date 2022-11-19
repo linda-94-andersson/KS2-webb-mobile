@@ -18,12 +18,12 @@ export const getInvoices = async () => {
 };
 
 export const addInvoice = async (
-  id: Invoice,
-  status: Invoice,
-  due_date: Invoice,
-  hourly_rate: Invoice,
-  customer_name: Invoice,
-  created_date: Invoice
+  id: string,
+  status: string,
+  due_date: number,
+  hourly_rate: number,
+  customer_name: string,
+  created_date: number
 ) => {
   const res = await axios.request<Invoice>({
     method: "post",
