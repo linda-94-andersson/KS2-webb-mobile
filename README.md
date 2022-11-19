@@ -26,14 +26,14 @@
 - Se en lista på tidtagningar de senaste 30 dagarna
   (Har du byggt in dessa i tasks: tasks som loggat tid de senaste 30 dagarna) ()
 - Se en lista på alla tidtagningar (X)
-- Se en lista på projekt ()
+- Se en lista på projekt (X)
 - Se en lista på tasks (X)
 - Ta bort en tidtagning (X)
 - Ta bort en task (X)
 - Ta bort ett projekt (X)
 - Sätta ett timpris på ett projekt ()
-- Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla ()
-- Se en lista på "fakturor" och status ()
+- Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (-)
+- Se en lista på "fakturor" och status (X)
 - Se en överblicks-sida som visar: ()
   - Antal projekt ()
   - Antal tasks ()
@@ -51,10 +51,10 @@
 - Applikationen ska vara byggd med responsiv design i åtanke. (X)
 
 - En faktura ska innehålla ()
-  - Status (Ej betald, betald, försenad) ()
-  - Förfallodag (30 dagar från datumet vi skapade den) ()
+  - Status (Ej betald, betald, försenad) (X)
+  - Förfallodag (30 dagar från datumet vi skapade den) (X)
   - Summa (tid x projektets timpris) ()
-  - Kundens namn ()
+  - Kundens namn (X)
 
 - Listorna ska vara presenterade som tabeller med följande kolumner: (X)
   - Tasks: Namn, Projektets namn (X)
@@ -64,7 +64,7 @@
 - Applikationen ska inte innehålla några "@ts-ignore", typfel och inga implicita any. (X)
 
 ## För att uppnå Väl Godkänt är kraven att 2 av följande 4 är uppfyllda:
-- Applikationen ska inte heller innehålla några explicita any. ()
+- Applikationen ska inte heller innehålla några explicita any. (X)
 
 - Kunna välja att avrunda tiden uppåt på tasks när man skapar en faktura till närmsta [1 min, 5 min, 15 min, 30 min, 1h].
 (Avrundningen ska ske på varje individuell task, inte på hela fakturan) ()
