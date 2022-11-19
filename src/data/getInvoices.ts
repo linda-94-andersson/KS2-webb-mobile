@@ -4,7 +4,7 @@ type Invoice = {
   id: string;
   status: string;
   due_date: number;
-  sum: number;
+  hourly_rate: number;
   customer_name: string;
   created_date: number;
   map: Function;
@@ -21,7 +21,7 @@ export const addInvoice = async (
   id: Invoice,
   status: Invoice,
   due_date: Invoice,
-  sum: Invoice,
+  hourly_rate: Invoice,
   customer_name: Invoice,
   created_date: Invoice
 ) => {
@@ -32,7 +32,7 @@ export const addInvoice = async (
       id: id,
       status: status,
       due_date: due_date,
-      sum: sum,
+      hourly_rate: hourly_rate,
       customer_name: customer_name,
       created_date: created_date,
     },
