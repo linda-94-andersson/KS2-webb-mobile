@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   Input,
@@ -7,12 +7,16 @@ import {
   FormLabel,
   Select,
   Box,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import { useProject } from "../context/ProjectContext";
 import { useTask } from "../context/TaskContext";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
+import { addInvoice, getInvoices } from "../data/getInvoices";
+import { v4 as uuid } from "uuid";
 
 type Project = {
   id: string;
@@ -34,14 +38,16 @@ dayjs.extend(duration);
 const Invoice = () => {
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
-  const [inputRate, setInputRate] = useState(""); //should be number
-  const [createDate, setCreateDate] = useState<number>();
-  const [dueDate, setDueDate] = useState<number>();
+  const [inputRate, setInputRate] = useState(0);
+  const [createDate, setCreateDate] = useState(Date.now);
+  const [dueDate, setDueDate] = useState(Date.now);
   const [status, setStatus] = useState("Unpaid");
   const [inputCustomer, setInputCustomer] = useState("");
 
   const { projectValue } = useProject();
   const { taskValue } = useTask();
+
+  const generated_id: string = uuid();
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
@@ -49,51 +55,67 @@ const Invoice = () => {
 
   const handleSelectedTask = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTask(e.target.value);
-    if (!selectedTask) return;
-    const createdDate = () => {
-      setCreateDate(Date.now());
-      return createDate;
-    };
-    createdDate();
-    if (!createDate) return;
-    const duedDate = () => {
-      const sumDate = createDate + 2592000000;
-      console.log(sumDate); // remove later
-      setDueDate(sumDate);
-      return dueDate;
-    };
-    duedDate();
   };
 
   const handleInputRate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputRate(e.target.value);
+    setInputRate(parseFloat(e.target.value));
   };
 
   const handleInputCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCustomer(e.target.value);
   };
 
-  const handleSubmit = async () => {
-    //just for testing
-    setCreateDate(0);
-    setDueDate(0);
+  function setDates() {
+    if (!selectedTask || !selectedProject) return;
+    const createdDate = () => {
+      setCreateDate(Date.now());
+      console.log(createDate, " this is created date");
+      return createDate;
+    };
+    createdDate();
+    if (!createDate || !selectedTask) return;
+    const duedDate = () => {
+      const sumDate = createDate + 2592000000;
+      setDueDate(sumDate);
+      console.log(dueDate, " this is due date");
+      return dueDate;
+    };
+    duedDate();
+  }
 
-    // if (!input || !selectedUser) return;
-    // if (
-    //   projectValue.projects.find((p) => p.color === color.hex) &&
-    //   projectValue.projects.find((p) => p.userId === selectedUser)
-    // ) {
-    //   return setValidColor(false);
-    // }
-    // const data = await addProject(generated_id, input, color.hex, selectedUser);
-    // dispatch({
-    //   type: "added",
-    //   id: data.id,
-    //   name: data.name,
-    //   color: data.color,
-    //   userId: data.userId,
-    // });
-    // await getProjectData();
+  useEffect(() => {
+    setDates();
+  }, [selectedTask]);
+
+  const handleSubmit = async () => {
+    console.log("First!");
+    if (
+      !selectedProject ||
+      !selectedTask ||
+      inputRate || //should be sum
+      createDate ||
+      dueDate ||
+      inputCustomer
+    )
+      return;
+
+    console.log("Second!");
+
+    const data = await addInvoice(
+      generated_id,
+      status,
+      dueDate,
+      inputRate, //should be sum
+      inputCustomer,
+      createDate
+    );
+
+    await getInvoices();
+
+    setCreateDate(Date.now);
+    setDueDate(Date.now);
+    setInputRate(0);
+    setInputCustomer("");
   };
 
   return (
@@ -151,6 +173,29 @@ const Invoice = () => {
         </>
       )}
       <br />
+      <FormLabel></FormLabel>
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          color="gray.300"
+          fontSize="1.2em"
+          children="$"
+        />
+        <Input
+          type="number"
+          placeholder="Enter hourly rate"
+          onChange={handleInputRate}
+        />
+      </InputGroup>
+      <br />
+      <FormLabel></FormLabel>
+      <Input
+        type="text"
+        placeholder="Customer name"
+        onChange={handleInputCustomer}
+      />
+      <br />
+      <br />
       <Center>
         <Box>Invoice Date: {dayjs(createDate).format("YYYY-MM-DD")}</Box>
       </Center>
@@ -163,25 +208,14 @@ const Invoice = () => {
         <Box>Invoice status: {status}</Box>
       </Center>
       <br />
-      <FormLabel></FormLabel>
-      <Input
-        required
-        type="text"
-        name="hourly_rate"
-        placeholder="Enter hourly rate"
-        onChange={handleInputRate}
-      />
+      <Center>
+        {/* Calculate sum here and add to state */}
+        <Box>Sum: {inputRate}</Box>
+      </Center>
       <br />
-      <br />
-      <FormLabel></FormLabel>
-      <Input
-        required
-        type="text"
-        name="customerName"
-        placeholder="Customer name"
-        onChange={handleInputCustomer}
-      />
-      <br />
+      <Center>
+        <Box>Customer: {inputCustomer}</Box>
+      </Center>
       <br />
       <Center>
         <Button
