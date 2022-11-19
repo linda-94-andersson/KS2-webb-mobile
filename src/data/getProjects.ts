@@ -24,7 +24,7 @@ export const deleteProject = async (id: string) => {
   return;
 };
 
-export const changeProject = async (id: Project, hourly_rate: Project) => {
+export const changeProject = async (id: string, hourly_rate: number) => {
   const { data } = await axios.request<Project>({
     method: "patch",
     url: `http://${import.meta.env.VITE_URL_KEY}/projects/${id}`,
