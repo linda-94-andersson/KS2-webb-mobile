@@ -69,7 +69,6 @@ const Invoice = () => {
     if (!selectedTask || !selectedProject) return;
     const createdDate = () => {
       setCreateDate(Date.now());
-      console.log(createDate, " this is created date");
       return createDate;
     };
     createdDate();
@@ -77,7 +76,6 @@ const Invoice = () => {
     const duedDate = () => {
       const sumDate = createDate + 2592000000;
       setDueDate(sumDate);
-      console.log(dueDate, " this is due date");
       return dueDate;
     };
     duedDate();
@@ -92,10 +90,10 @@ const Invoice = () => {
     if (
       !selectedProject ||
       !selectedTask ||
-      inputRate || //should be sum
-      createDate ||
-      dueDate ||
-      inputCustomer
+      !inputRate || //should be sum
+      !createDate ||
+      !dueDate ||
+      !inputCustomer
     )
       return;
 
