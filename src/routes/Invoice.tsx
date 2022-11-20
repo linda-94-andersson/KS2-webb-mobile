@@ -17,6 +17,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
 import { addInvoice, getInvoices } from "../data/getInvoices";
 import { v4 as uuid } from "uuid";
+import { changeProject, getProjects } from "../data/getProjects";
 
 type Project = {
   id: string;
@@ -86,7 +87,6 @@ const Invoice = () => {
   }, [selectedTask]);
 
   const handleSubmit = async () => {
-    console.log("First!");
     if (
       !selectedProject ||
       !selectedTask ||
@@ -97,9 +97,11 @@ const Invoice = () => {
     )
       return;
 
-    console.log("Second!");
+    const PData = await changeProject(selectedProject, inputRate);
 
-    const data = await addInvoice(
+    await getProjects();
+
+    const IData = await addInvoice(
       generated_id,
       status,
       dueDate,
@@ -114,6 +116,8 @@ const Invoice = () => {
     setDueDate(Date.now);
     setInputRate(0);
     setInputCustomer("");
+    setSelectedTask("");
+    setSelectedProject("");
   };
 
   return (
