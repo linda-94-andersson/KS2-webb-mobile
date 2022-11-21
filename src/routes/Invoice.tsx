@@ -83,7 +83,7 @@ const Invoice = () => {
   };
 
   return (
-    <FormControl isRequired>
+    <FormControl isRequired style={{ paddingBottom: 120 }}>
       <Selected
         selectedProject={selectedProject}
         setSelectedProject={setSelectedProject}
