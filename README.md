@@ -31,7 +31,7 @@
 - Ta bort en tidtagning (X)
 - Ta bort en task (X)
 - Ta bort ett projekt (X)
-- Sätta ett timpris på ett projekt ()
+- Sätta ett timpris på ett projekt (X)
 - Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (-)
 - Se en lista på "fakturor" och status (X)
 - Se en överblicks-sida som visar: ()
