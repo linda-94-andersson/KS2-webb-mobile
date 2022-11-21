@@ -1,37 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  FormControl,
-  Input,
-  Button,
-  Center,
-  FormLabel,
-  Select,
-  Box,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
-import { useProject } from "../context/ProjectContext";
-import { useTask } from "../context/TaskContext";
+import { FormControl, Button, Center, Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
 import { addInvoice, getInvoices } from "../data/getInvoices";
 import { v4 as uuid } from "uuid";
 import { changeProject, getProjects } from "../data/getProjects";
-
-type Project = {
-  id: string;
-  name: string;
-  color: string;
-  userId: string;
-  hourly_rate?: number;
-};
-
-type Task = {
-  id: string;
-  name: string;
-  projectId: string;
-};
+import Selected from "../components/invoiceComponents/Selected";
+import Inputs from "../components/invoiceComponents/Inputs";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
@@ -45,26 +21,7 @@ const Invoice = () => {
   const [status, setStatus] = useState("Unpaid");
   const [inputCustomer, setInputCustomer] = useState("");
 
-  const { projectValue } = useProject();
-  const { taskValue } = useTask();
-
   const generated_id: string = uuid();
-
-  const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProject(e.target.value);
-  };
-
-  const handleSelectedTask = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTask(e.target.value);
-  };
-
-  const handleInputRate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputRate(parseFloat(e.target.value));
-  };
-
-  const handleInputCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputCustomer(e.target.value);
-  };
 
   function setDates() {
     if (!selectedTask || !selectedProject) return;
@@ -122,82 +79,14 @@ const Invoice = () => {
 
   return (
     <FormControl isRequired>
-      <FormLabel></FormLabel>
-      <Select
-        required
-        name="projects"
-        id="projects"
-        value={selectedProject}
-        onChange={handleSelectedProject}
-      >
-        <option value="">Pick a project</option>
-        {projectValue.projects ? (
-          projectValue.projects.map((p: Project) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))
-        ) : (
-          <option value="">No projects found</option>
-        )}
-      </Select>
-      <br />
-      {selectedProject.length !== 0 ? (
-        <>
-          <FormLabel></FormLabel>
-          <Select
-            required
-            name="taks"
-            id="tasks"
-            value={selectedTask}
-            onChange={handleSelectedTask}
-          >
-            <option value="">Pick a task</option>
-            {/* Chould be more than just one task? */}
-            {taskValue.tasks ? (
-              taskValue.tasks
-                .filter((t: Task) => t.projectId === selectedProject)
-                .map((t: Task) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name}
-                  </option>
-                ))
-            ) : (
-              <option value="">No tasks found</option>
-            )}
-          </Select>
-        </>
-      ) : (
-        <>
-          <FormLabel></FormLabel>
-          <Select>
-            <option value="">Pick a project before a task</option>
-          </Select>
-        </>
-      )}
-      <br />
-      <FormLabel></FormLabel>
-      <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          color="gray.300"
-          fontSize="1.2em"
-          children="$"
-        />
-        <Input
-          type="number"
-          placeholder="Enter hourly rate"
-          onChange={handleInputRate}
-        />
-      </InputGroup>
-      <br />
-      <FormLabel></FormLabel>
-      <Input
-        type="text"
-        placeholder="Customer name"
-        onChange={handleInputCustomer}
+      <Selected
+        selectedProject={selectedProject}
+        setSelectedProject={setSelectedProject}
+        selectedTask={selectedTask}
+        setSelectedTask={setSelectedTask}
       />
       <br />
+      <Inputs setInputRate={setInputRate} setInputCustomer={setInputCustomer} />
       <br />
       <Center>
         <Box>Invoice Date: {dayjs(createDate).format("YYYY-MM-DD")}</Box>
@@ -205,7 +94,7 @@ const Invoice = () => {
       <br />
       <Center>
         <Box>
-          Due Date(30 days):
+          Due Date (30 days):{" "}
           {dayjs(createDate + 2592000000).format("YYYY-MM-DD")}
         </Box>
       </Center>
