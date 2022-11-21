@@ -8,11 +8,13 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
+  inputRate: number;
   setInputRate: React.Dispatch<React.SetStateAction<number>>;
+  inputCustomer: string; 
   setInputCustomer: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Inputs = ({ setInputRate, setInputCustomer }: Props) => {
+const Inputs = ({ inputRate, setInputRate, inputCustomer, setInputCustomer }: Props) => {
   const handleInputRate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputRate(parseFloat(e.target.value));
   };
@@ -35,6 +37,7 @@ const Inputs = ({ setInputRate, setInputCustomer }: Props) => {
           type="number"
           placeholder="Enter hourly rate"
           onChange={handleInputRate}
+          value={inputRate}
         />
       </InputGroup>
       <br />
@@ -43,6 +46,7 @@ const Inputs = ({ setInputRate, setInputCustomer }: Props) => {
         type="text"
         placeholder="Customer name"
         onChange={handleInputCustomer}
+        value={inputCustomer}
       />
     </FormControl>
   );

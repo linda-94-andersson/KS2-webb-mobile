@@ -86,7 +86,7 @@ const Invoice = () => {
         setSelectedTask={setSelectedTask}
       />
       <br />
-      <Inputs setInputRate={setInputRate} setInputCustomer={setInputCustomer} />
+      <Inputs inputRate={inputRate} setInputRate={setInputRate} inputCustomer={inputCustomer} setInputCustomer={setInputCustomer} />
       <br />
       <Center>
         <Box>Invoice Date: {dayjs(createDate).format("YYYY-MM-DD")}</Box>
