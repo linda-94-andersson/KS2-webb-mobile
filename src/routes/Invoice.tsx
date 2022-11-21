@@ -3,11 +3,13 @@ import { FormControl, Button, Center, Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
-import { addInvoice, getInvoices } from "../data/getInvoices";
+import { addInvoice } from "../data/getInvoices";
 import { v4 as uuid } from "uuid";
-import { changeProject, getProjects } from "../data/getProjects";
+import { changeProject } from "../data/getProjects";
 import Selected from "../components/invoiceComponents/Selected";
 import Inputs from "../components/invoiceComponents/Inputs";
+import { useProject } from "../context/ProjectContext";
+import { useInvoice } from "../context/InvoiceContext";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
@@ -20,6 +22,9 @@ const Invoice = () => {
   const [dueDate, setDueDate] = useState(Date.now);
   const [status, setStatus] = useState("Unpaid");
   const [inputCustomer, setInputCustomer] = useState("");
+
+  const { getProjectData } = useProject();
+  const { getInvoiceData } = useInvoice();
 
   const generated_id: string = uuid();
 
@@ -56,7 +61,7 @@ const Invoice = () => {
 
     const PData = await changeProject(selectedProject, inputRate);
 
-    await getProjects();
+    await getProjectData();
 
     const IData = await addInvoice(
       generated_id,
@@ -67,7 +72,7 @@ const Invoice = () => {
       createDate
     );
 
-    await getInvoices();
+    await getInvoiceData();
 
     setCreateDate(Date.now);
     setDueDate(Date.now);
@@ -86,7 +91,12 @@ const Invoice = () => {
         setSelectedTask={setSelectedTask}
       />
       <br />
-      <Inputs inputRate={inputRate} setInputRate={setInputRate} inputCustomer={inputCustomer} setInputCustomer={setInputCustomer} />
+      <Inputs
+        inputRate={inputRate}
+        setInputRate={setInputRate}
+        inputCustomer={inputCustomer}
+        setInputCustomer={setInputCustomer}
+      />
       <br />
       <Center>
         <Box>Invoice Date: {dayjs(createDate).format("YYYY-MM-DD")}</Box>
