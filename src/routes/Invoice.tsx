@@ -204,7 +204,10 @@ const Invoice = () => {
       </Center>
       <br />
       <Center>
-        <Box>Due Date: {dayjs(dueDate).format("YYYY-MM-DD")}</Box>
+        <Box>
+          Due Date(30 days):
+          {dayjs(createDate + 2592000000).format("YYYY-MM-DD")}
+        </Box>
       </Center>
       <br />
       <Center>
