@@ -1,5 +1,12 @@
 import React from "react";
-import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+import {
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Select,
+  Stack,
+  Box,
+} from "@chakra-ui/react";
 import { useProject } from "../../context/ProjectContext";
 import { useTask } from "../../context/TaskContext";
 
@@ -37,7 +44,7 @@ const Selected = ({
     setSelectedProject(e.target.value);
   };
 
-  const handleSelectedTask = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectedTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTask(e.target.value);
   };
 
@@ -65,35 +72,30 @@ const Selected = ({
       <br />
       {selectedProject.length !== 0 ? (
         <>
-          <FormLabel></FormLabel>
-          <Select
-            required
-            name="taks"
-            id="tasks"
-            value={selectedTask}
-            onChange={handleSelectedTask}
-          >
-            <option value="">Pick a task</option>
-            {/* Should be more than just one task? */}
-            {taskValue.tasks ? (
-              taskValue.tasks
-                .filter((t: Task) => t.projectId === selectedProject)
-                .map((t: Task) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name}
-                  </option>
-                ))
-            ) : (
-              <option value="">No tasks found</option>
-            )}
-          </Select>
+          <FormLabel style={{ marginLeft: 10 }}>Select task(s)</FormLabel>
+          <Box style={{ marginLeft: 10 }}>
+            <Stack spacing={5} direction="column">
+              {taskValue.tasks &&
+                taskValue.tasks
+                  .filter((t: Task) => t.projectId === selectedProject)
+                  .map((t: Task) => (
+                    <Checkbox
+                      colorScheme="blue"
+                      key={t.id}
+                      value={t.id}
+                      onChange={handleSelectedTask}
+                    >
+                      {t.name}
+                    </Checkbox>
+                  ))}
+            </Stack>
+          </Box>
         </>
       ) : (
         <>
-          <FormLabel></FormLabel>
-          <Select>
-            <option value="">Pick a project before a task</option>
-          </Select>
+          <FormLabel style={{ marginLeft: 10 }}>
+            Select a project to pick task(s)
+          </FormLabel>
         </>
       )}
     </FormControl>
