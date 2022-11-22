@@ -16,13 +16,13 @@ dayjs.extend(duration);
 
 const Invoice = () => {
   const [selectedProject, setSelectedProject] = useState("");
-  const [selectedTask, setSelectedTask] = useState("");
+  const [selectedTask, setSelectedTask] = useState<string[]>([]);
   const [inputRate, setInputRate] = useState(0);
   const [createDate, setCreateDate] = useState(Date.now);
   const [dueDate, setDueDate] = useState(Date.now);
   const [status, setStatus] = useState("Unpaid");
   const [inputCustomer, setInputCustomer] = useState("");
-  const [logTime, setLogTime] = useState(0);
+  const [sum, setSum] = useState<number>();
 
   const { getProjectData } = useProject();
   const { getInvoiceData } = useInvoice();
@@ -53,7 +53,7 @@ const Invoice = () => {
     if (
       !selectedProject ||
       !selectedTask ||
-      !inputRate || //should be sum
+      !sum ||
       !createDate ||
       !dueDate ||
       !inputCustomer
@@ -68,7 +68,7 @@ const Invoice = () => {
       generated_id,
       status,
       dueDate,
-      inputRate, //should be sum
+      sum,
       inputCustomer,
       createDate
     );
@@ -79,7 +79,7 @@ const Invoice = () => {
     setDueDate(Date.now);
     setInputRate(0);
     setInputCustomer("");
-    setSelectedTask("");
+    setSelectedTask([]);
     setSelectedProject("");
   };
 
@@ -90,12 +90,12 @@ const Invoice = () => {
         setSelectedProject={setSelectedProject}
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
-        logTime={logTime}
-        setLogTime={setLogTime}
+        inputRate={inputRate}
+        sum={sum}
+        setSum={setSum}
       />
       <br />
       <Inputs
-        inputRate={inputRate}
         setInputRate={setInputRate}
         inputCustomer={inputCustomer}
         setInputCustomer={setInputCustomer}
@@ -117,8 +117,7 @@ const Invoice = () => {
       </Center>
       <br />
       <Center>
-        {/* Calculate sum here and add to state */}
-        <Box>Sum: {inputRate}</Box>
+        <Box>Sum: {sum}</Box>
       </Center>
       <br />
       <Center>

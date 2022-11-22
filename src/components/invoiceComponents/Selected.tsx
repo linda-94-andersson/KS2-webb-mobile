@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Checkbox,
   FormControl,
@@ -18,10 +18,11 @@ dayjs.extend(duration);
 type Props = {
   selectedProject: string;
   setSelectedProject: React.Dispatch<React.SetStateAction<string>>;
-  selectedTask: string;
-  setSelectedTask: React.Dispatch<React.SetStateAction<string>>;
-  logTime: number;
-  setLogTime: React.Dispatch<React.SetStateAction<number>>;
+  selectedTask: string[];
+  setSelectedTask: React.Dispatch<React.SetStateAction<string[]>>;
+  inputRate: number;
+  sum: number | undefined;
+  setSum: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 type Project = {
@@ -38,53 +39,51 @@ type Task = {
   projectId: string;
 };
 
-type Timelog = {
-  id: string;
-  startTime: number;
-  endTime: number;
-  taskId: string;
-};
-
 const Selected = ({
   selectedProject,
   setSelectedProject,
   selectedTask,
   setSelectedTask,
-  logTime,
-  setLogTime,
+  inputRate,
+  sum,
+  setSum,
 }: Props) => {
   const { projectValue } = useProject();
   const { taskValue } = useTask();
   const { timeLogValue } = useTimeLog();
 
-  const totalTime = useMemo(() => {
-    if (timeLogValue.timeLogs) {
-      const filterdTimes: [] = timeLogValue.timeLogs.filter(
-        (tl: Timelog) => tl.taskId === selectedTask && tl.endTime
-      );
-      const elapsed = filterdTimes.reduce((sum: number, curr: Timelog) => {
-        return sum + (curr.endTime - curr.startTime);
-      }, 0);
-      return elapsed;
-    }
-  }, [timeLogValue.timeLogs, selectedTask]);
-
-  const callTime = () => {
-    if (totalTime === undefined) return;
-    const time = dayjs.duration(totalTime).asHours();
-    setLogTime(time);
-  };
-
   useEffect(() => {
-    callTime();
-  }, [selectedTask]);
+    if (!timeLogValue.timeLogs || !projectValue.projects) return;
+
+    const totalTime = timeLogValue.timeLogs
+      .filter((timeLog) =>
+        selectedTask.some((taskId) => taskId === timeLog.taskId)
+      )
+      .map((timeLog) =>
+        dayjs.duration(timeLog.endTime - timeLog.startTime).asHours()
+      )
+      .reduce((acc, sum) => acc + sum, 0);
+
+    const hourlyRate = inputRate;
+
+    const calcPrize = (hourlyRate as number) * totalTime;
+
+    setSum(Math.round(calcPrize * 100) / 100);
+  }, [selectedTask, selectedProject, inputRate]);
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
   };
 
   const handleSelectedTask = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedTask(e.target.value);
+    if (e.target.checked) {
+      setSelectedTask((prev) => [...prev, e.target.value]);
+    }
+    if (!e.target.checked) {
+      setSelectedTask((tasks) =>
+        tasks.filter((taskId) => taskId !== e.target.value)
+      );
+    }
   };
 
   return (
@@ -137,12 +136,11 @@ const Selected = ({
           </FormLabel>
         </>
       )}
-      {logTime !== 0 ? (
+      {sum !== 0 ? (
         <>
           <br />
           <Box style={{ marginLeft: 10 }}>
-            The amount of time that will be invoiced:{" "}
-            <b>{dayjs(totalTime).subtract(1, "hour").format("HH:mm:ss")}</b>
+            The amount of time that will be invoiced: <b>{sum}</b>
           </Box>
         </>
       ) : (
