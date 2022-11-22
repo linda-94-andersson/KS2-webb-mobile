@@ -14,12 +14,20 @@
       "id": "51e295ee-80c3-44ea-b919-98a39350b8e1",
       "name": "Filtrera tasks per datum",
       "color": "#d61c25ff",
-      "userId": "f5c926fa-2d22-4d82-a7e6-db4e963a703c"
+      "userId": "f5c926fa-2d22-4d82-a7e6-db4e963a703c",
+      "hourly_rate": 100
     },
     {
       "id": "daab98bb-3c49-4438-8dd6-368fee1f253b",
       "name": "TS-Project",
       "color": "#5de3deff",
+      "userId": "71585db0-7ac6-43df-a4ef-2f178803723f",
+      "hourly_rate": 100
+    },
+    {
+      "id": "1383abcc-761d-41bd-aef0-2ee7675ebcef",
+      "name": "Testing KS2",
+      "color": "#dbc42aff",
       "userId": "71585db0-7ac6-43df-a4ef-2f178803723f"
     }
   ],
@@ -109,16 +117,22 @@
       "startTime": 1668588579620,
       "endTime": 1668588659679,
       "taskId": "92ccfe1d-b48f-425c-b04c-3e6e0f7dd95c"
+    },
+    {
+      "id": "56cb54d3-498e-4922-a2e8-2e3b5f6b35fe",
+      "startTime": 1669127681472,
+      "endTime": 1669127895113,
+      "taskId": "00ba545f-792d-4d7a-b75c-1be888c8eb99"
     }
   ],
   "invoices": [
     {
-      "id": "b875f6db-1c40-44ce-8f49-6da90e3af37c",
+      "id": "1c31d60e-990d-4fff-a1d8-8aacfcf3b886",
       "status": "Unpaid",
-      "due_date": 1671459166320,
-      "sum": 100,
-      "customer_name": "Linda",
-      "created_date": 1668867170218
+      "due_date": 1671746302714,
+      "sum": 100.24,
+      "customer_name": "Alfred the best",
+      "created_date": 1669154303130
     }
   ]
 }
