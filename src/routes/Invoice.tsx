@@ -22,6 +22,7 @@ const Invoice = () => {
   const [dueDate, setDueDate] = useState(Date.now);
   const [status, setStatus] = useState("Unpaid");
   const [inputCustomer, setInputCustomer] = useState("");
+  const [logTime, setLogTime] = useState(0); 
 
   const { getProjectData } = useProject();
   const { getInvoiceData } = useInvoice();
@@ -89,6 +90,7 @@ const Invoice = () => {
         setSelectedProject={setSelectedProject}
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
+        setLogTime={setLogTime}
       />
       <br />
       <Inputs

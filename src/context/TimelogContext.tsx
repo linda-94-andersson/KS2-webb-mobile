@@ -18,6 +18,7 @@ type Timelog = {
   endTime: number;
   taskId: string;
   map: Function;
+  filter: Function;
 };
 
 type Value = {

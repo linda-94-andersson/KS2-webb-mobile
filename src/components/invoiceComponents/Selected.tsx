@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import {
   Checkbox,
   FormControl,
@@ -9,12 +9,18 @@ import {
 } from "@chakra-ui/react";
 import { useProject } from "../../context/ProjectContext";
 import { useTask } from "../../context/TaskContext";
+import { useTimeLog } from "../../context/TimelogContext";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+
+dayjs.extend(duration);
 
 type Props = {
   selectedProject: string;
   setSelectedProject: React.Dispatch<React.SetStateAction<string>>;
   selectedTask: string;
   setSelectedTask: React.Dispatch<React.SetStateAction<string>>;
+  setLogTime: React.Dispatch<React.SetStateAction<number>>;
 };
 
 type Project = {
@@ -31,14 +37,46 @@ type Task = {
   projectId: string;
 };
 
+type Timelog = {
+  id: string;
+  startTime: number;
+  endTime: number;
+  taskId: string;
+};
+
 const Selected = ({
   selectedProject,
   setSelectedProject,
   selectedTask,
   setSelectedTask,
+  setLogTime,
 }: Props) => {
   const { projectValue } = useProject();
   const { taskValue } = useTask();
+  const { timeLogValue } = useTimeLog();
+
+  const totalTime = useMemo(() => {
+    if (timeLogValue.timeLogs) {
+      const filterdTimes: [] = timeLogValue.timeLogs.filter(
+        (tl: Timelog) => tl.taskId === selectedTask && tl.endTime
+      );
+      const elapsed = filterdTimes.reduce((sum: number, curr: Timelog) => {
+        return sum + (curr.endTime - curr.startTime);
+      }, 0);
+      return elapsed;
+    }
+  }, [timeLogValue.timeLogs, selectedTask]);
+
+  const callTime = () => {
+    if (totalTime === undefined) return;
+    const time = dayjs.duration( totalTime).asHours()
+    setLogTime(time);
+  };
+
+  useEffect(() => {
+    callTime();
+  }, [selectedTask]);
+
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
