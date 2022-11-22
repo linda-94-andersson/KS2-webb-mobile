@@ -32,7 +32,7 @@
 - Ta bort en task (X)
 - Ta bort ett projekt (X)
 - Sätta ett timpris på ett projekt (X)
-- Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (-)
+- Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (X)
 - Se en lista på "fakturor" och status (X)
 - Se en överblicks-sida som visar: ()
   - Antal projekt ()
@@ -50,10 +50,10 @@
 
 - Applikationen ska vara byggd med responsiv design i åtanke. (X)
 
-- En faktura ska innehålla ()
+- En faktura ska innehålla (X)
   - Status (Ej betald, betald, försenad) (X)
   - Förfallodag (30 dagar från datumet vi skapade den) (X)
-  - Summa (tid x projektets timpris) ()
+  - Summa (tid x projektets timpris) (X)
   - Kundens namn (X)
 
 - Listorna ska vara presenterade som tabeller med följande kolumner: (X)
