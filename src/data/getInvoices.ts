@@ -7,11 +7,10 @@ type Invoice = {
   sum: number;
   customer_name: string;
   created_date: number;
-  map: Function;
 };
 
 export const getInvoices = async () => {
-  const { data } = await axios.get<Invoice>(
+  const { data } = await axios.get<Invoice[]>(
     `http://${import.meta.env.VITE_URL_KEY}/invoices`
   );
   return data;
@@ -25,7 +24,7 @@ export const addInvoice = async (
   customer_name: string,
   created_date: number
 ) => {
-  const res = await axios.request<Invoice>({
+  const res = await axios.request<Invoice[]>({
     method: "post",
     url: `http://${import.meta.env.VITE_URL_KEY}/invoices`,
     data: {

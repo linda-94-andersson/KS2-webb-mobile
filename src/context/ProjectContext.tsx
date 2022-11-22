@@ -18,14 +18,12 @@ type Project = {
   color: string;
   userId: string;
   hourly_rate?: number;
-  map: Function;
-  filter: Function;
 };
 
 type Value = {
   projectValue: {
-    projects: Project | undefined;
-    setProjects: React.Dispatch<React.SetStateAction<Project | undefined>>;
+    projects: Project[] | undefined;
+    setProjects: React.Dispatch<React.SetStateAction<Project[] | undefined>>;
   };
   getProjectData: () => Promise<void>;
 };
@@ -43,7 +41,7 @@ export const useProject = () => {
 };
 
 export function ProjectProvider({ children }: Props) {
-  const [projects, setProjects] = useState<Project | undefined>();
+  const [projects, setProjects] = useState<Project[] | undefined>();
 
   const projectValue = useMemo(
     () => ({ projects, setProjects }),

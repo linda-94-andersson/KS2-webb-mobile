@@ -17,14 +17,12 @@ type Timelog = {
   startTime: number;
   endTime: number;
   taskId: string;
-  map: Function;
-  filter: Function;
 };
 
 type Value = {
   timeLogValue: {
-    timeLogs: Timelog | undefined;
-    setTimeLogs: React.Dispatch<React.SetStateAction<Timelog | undefined>>;
+    timeLogs: Timelog[] | undefined;
+    setTimeLogs: React.Dispatch<React.SetStateAction<Timelog[] | undefined>>;
   };
   getTimeLogData: () => Promise<void>;
 };
@@ -42,7 +40,7 @@ export const useTimeLog = () => {
 };
 
 export function TimeLogProvider({ children }: Props) {
-  const [timeLogs, setTimeLogs] = useState<Timelog | undefined>();
+  const [timeLogs, setTimeLogs] = useState<Timelog[] | undefined>();
 
   const timeLogValue = useMemo(
     () => ({ timeLogs, setTimeLogs }),

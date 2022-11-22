@@ -15,13 +15,12 @@ type Props = {
 type User = {
   id: string;
   name: string;
-  map: Function;
 };
 
 type Value = {
   userValue: {
-    users: User | undefined;
-    setUsers: React.Dispatch<React.SetStateAction<User | undefined>>;
+    users: User[] | undefined;
+    setUsers: React.Dispatch<React.SetStateAction<User[] | undefined>>;
   };
   getUserData: () => Promise<void>;
 };
@@ -39,7 +38,7 @@ export const useUser = () => {
 };
 
 export function UserProvider({ children }: Props) {
-  const [users, setUsers] = useState<User | undefined>();
+  const [users, setUsers] = useState<User[] | undefined>();
 
   const userValue = useMemo(() => ({ users, setUsers }), [users, setUsers]);
 

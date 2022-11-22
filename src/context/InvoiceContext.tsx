@@ -19,13 +19,12 @@ type Invoice = {
   sum: number;
   customer_name: string;
   created_date: number;
-  map: Function;
 };
 
 type Value = {
   invoiceValue: {
-    invoices: Invoice | undefined;
-    setInvoices: React.Dispatch<React.SetStateAction<Invoice | undefined>>;
+    invoices: Invoice[] | undefined;
+    setInvoices: React.Dispatch<React.SetStateAction<Invoice[] | undefined>>;
   };
   getInvoiceData: () => Promise<void>;
 };
@@ -43,7 +42,7 @@ export const useInvoice = () => {
 };
 
 export function InvoiceProvider({ children }: Props) {
-  const [invoices, setInvoices] = useState<Invoice | undefined>();
+  const [invoices, setInvoices] = useState<Invoice[] | undefined>();
 
   const invoiceValue = useMemo(
     () => ({ invoices, setInvoices }),

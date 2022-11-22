@@ -17,14 +17,12 @@ type Task = {
   name: string;
   createdDate: number;
   projectId: string;
-  filter: Function;
-  map: Function;
 };
 
 type Value = {
   taskValue: {
-    tasks: Task | undefined;
-    setTasks: React.Dispatch<React.SetStateAction<Task | undefined>>;
+    tasks: Task[] | undefined;
+    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>;
   };
   getTaskData: () => Promise<void>;
 };
@@ -42,7 +40,7 @@ export const useTask = () => {
 };
 
 export function TaskProvider({ children }: Props) {
-  const [tasks, setTasks] = useState<Task | undefined>();
+  const [tasks, setTasks] = useState<Task[] | undefined>();
 
   const taskValue = useMemo(() => ({ tasks, setTasks }), [tasks, setTasks]);
 
