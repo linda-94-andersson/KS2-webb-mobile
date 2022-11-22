@@ -20,6 +20,7 @@ type Props = {
   setSelectedProject: React.Dispatch<React.SetStateAction<string>>;
   selectedTask: string;
   setSelectedTask: React.Dispatch<React.SetStateAction<string>>;
+  logTime: number;
   setLogTime: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -49,6 +50,7 @@ const Selected = ({
   setSelectedProject,
   selectedTask,
   setSelectedTask,
+  logTime,
   setLogTime,
 }: Props) => {
   const { projectValue } = useProject();
@@ -69,14 +71,13 @@ const Selected = ({
 
   const callTime = () => {
     if (totalTime === undefined) return;
-    const time = dayjs.duration( totalTime).asHours()
+    const time = dayjs.duration(totalTime).asHours();
     setLogTime(time);
   };
 
   useEffect(() => {
     callTime();
   }, [selectedTask]);
-
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
@@ -135,6 +136,17 @@ const Selected = ({
             Select a project to pick task(s)
           </FormLabel>
         </>
+      )}
+      {logTime !== 0 ? (
+        <>
+          <br />
+          <Box style={{ marginLeft: 10 }}>
+            The amount of time that will be invoiced:{" "}
+            <b>{dayjs(totalTime).subtract(1, "hour").format("HH:mm:ss")}</b>
+          </Box>
+        </>
+      ) : (
+        <></>
       )}
     </FormControl>
   );
