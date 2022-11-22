@@ -146,7 +146,12 @@ const Selected = ({
           </Box>
         </>
       ) : (
-        <></>
+        <>
+          <br />
+          <Box style={{ marginLeft: 10 }}>
+            No time to invoice, please pick a task with time logs
+          </Box>
+        </>
       )}
     </FormControl>
   );
