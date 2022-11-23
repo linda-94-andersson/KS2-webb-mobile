@@ -39,7 +39,7 @@
   - Antal tasks (X)
   - Antal "fakturor" (X)
   - Tid som loggats de senaste 30 dagarna ()
-  - Antalet kronor som fakturerats det senaste året ()
+  - Antalet kronor som fakturerats det senaste året (X)
 
 ## För att uppnå Godkänt är kraven att:
 - Byggd med Typescript, React som Frontend och json-server. (X)
