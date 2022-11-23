@@ -27,26 +27,6 @@ import { useProject } from "../../context/ProjectContext";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { deleteTimeLogs } from "../../data/getTimeLogs";
 
-type Timelog = {
-  id: string;
-  startTime: number;
-  endTime: number;
-  taskId: string;
-};
-
-type Task = {
-  id: string;
-  name: string;
-  createdDate: number;
-  projectId: string;
-};
-
-type Project = {
-  id: string;
-  name: string;
-  color: string;
-};
-
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
 

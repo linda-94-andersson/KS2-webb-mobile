@@ -1,13 +1,5 @@
 import axios from "axios";
 
-type Project = {
-  id: string;
-  name: string;
-  color: string;
-  userId: string;
-  hourly_rate?: number;
-};
-
 export const getProjects = async () => {
   const { data } = await axios.get<Project[]>(
     `http://${import.meta.env.VITE_URL_KEY}/projects`

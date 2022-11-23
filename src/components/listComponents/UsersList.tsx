@@ -24,11 +24,6 @@ import { useProject } from "../../context/ProjectContext";
 import { useTask } from "../../context/TaskContext";
 import { useTimeLog } from "../../context/TimelogContext";
 
-type User = {
-  id: string;
-  name: string;
-};
-
 const UsersList = () => {
   const { userValue, getUserData } = useUser();
   const { getProjectData } = useProject();

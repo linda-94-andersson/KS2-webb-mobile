@@ -23,17 +23,6 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { deleteTask } from "../../data/getTasks";
 import { useTimeLog } from "../../context/TimelogContext";
 
-type Task = {
-  id: string;
-  name: string;
-  projectId: string;
-};
-
-type Project = {
-  id: string;
-  name: string;
-};
-
 const TasksList = () => {
   const { taskValue, getTaskData } = useTask();
   const { projectValue } = useProject();

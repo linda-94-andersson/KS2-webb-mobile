@@ -1,14 +1,5 @@
 import axios from "axios";
 
-type Invoice = {
-  id: string;
-  status: string;
-  due_date: number;
-  sum: number;
-  customer_name: string;
-  created_date: number;
-};
-
 export const getInvoices = async () => {
   const { data } = await axios.get<Invoice[]>(
     `http://${import.meta.env.VITE_URL_KEY}/invoices`

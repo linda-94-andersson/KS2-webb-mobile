@@ -4,18 +4,8 @@ import React, {
   useEffect,
   useContext,
   createContext,
-  ReactNode,
 } from "react";
 import { getUsers } from "../data/getUsers";
-
-type Props = {
-  children: ReactNode;
-};
-
-type User = {
-  id: string;
-  name: string;
-};
 
 type Value = {
   userValue: {

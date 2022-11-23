@@ -1,12 +1,5 @@
 import axios from "axios";
 
-type Task = {
-  id: string;
-  name: string;
-  createdDate: number;
-  projectId: string;
-};
-
 export const getTasks = async () => {
   const { data } = await axios.get<Task[]>(
     `http://${import.meta.env.VITE_URL_KEY}/tasks`

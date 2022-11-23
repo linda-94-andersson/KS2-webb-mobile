@@ -1,10 +1,5 @@
 import axios from "axios";
 
-type User = {
-  id: string;
-  name: string;
-};
-
 export const getUsers = async () => {
   const { data } = await axios.get<User[]>(
     `http://${import.meta.env.VITE_URL_KEY}/users`

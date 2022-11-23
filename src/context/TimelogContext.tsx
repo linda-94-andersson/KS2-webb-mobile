@@ -4,20 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  ReactNode,
 } from "react";
 import { getTimeLogs } from "../data/getTimeLogs";
-
-type Props = {
-  children: ReactNode;
-};
-
-type Timelog = {
-  id: string;
-  startTime: number;
-  endTime: number;
-  taskId: string;
-};
 
 type Value = {
   timeLogValue: {

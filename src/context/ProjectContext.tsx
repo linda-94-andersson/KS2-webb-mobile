@@ -4,21 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  ReactNode,
 } from "react";
 import { getProjects } from "../data/getProjects";
-
-type Props = {
-  children: ReactNode;
-};
-
-type Project = {
-  id: string;
-  name: string;
-  color: string;
-  userId: string;
-  hourly_rate?: number;
-};
 
 type Value = {
   projectValue: {

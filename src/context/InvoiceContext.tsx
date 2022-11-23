@@ -4,22 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  ReactNode,
 } from "react";
 import { getInvoices } from "../data/getInvoices";
-
-type Props = {
-  children: ReactNode;
-};
-
-type Invoice = {
-  id: string;
-  status: string;
-  due_date: number;
-  sum: number;
-  customer_name: string;
-  created_date: number;
-};
 
 type Value = {
   invoiceValue: {

@@ -20,14 +20,6 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
 import { useInvoice } from "../../context/InvoiceContext";
 
-type Invoice = {
-  id: string;
-  status: string;
-  due_date: number;
-  sum: number;
-  customer_name: string;
-};
-
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
 

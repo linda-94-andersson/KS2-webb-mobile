@@ -4,20 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  ReactNode,
 } from "react";
 import { getTasks } from "../data/getTasks";
-
-type Props = {
-  children: ReactNode;
-};
-
-type Task = {
-  id: string;
-  name: string;
-  createdDate: number;
-  projectId: string;
-};
 
 type Value = {
   taskValue: {
