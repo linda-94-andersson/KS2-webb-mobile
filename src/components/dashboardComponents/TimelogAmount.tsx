@@ -16,11 +16,88 @@ import {
 } from "@chakra-ui/react";
 import { GrDrag } from "react-icons/gr";
 import { useTimeLog } from "../../context/TimelogContext";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 
-//Set and calc the last 30 days
+dayjs.extend(isBetween);
 
 const TimelogAmount = () => {
   const { timeLogValue } = useTimeLog();
+
+  const showDate = () => {
+    const dateRange =
+      timeLogValue.timeLogs &&
+      timeLogValue.timeLogs
+        .filter(
+          (timelog) =>
+            dayjs(timelog.startTime).isBetween(
+              Date.now() - 2592000000,
+              Date.now()
+            ) ||
+            dayjs(timelog.endTime).isBetween(
+              Date.now() - 2592000000,
+              Date.now()
+            )
+        )
+        .map((timelog) => timelog)
+        .reduce((sum, curr) => {
+          return sum + (curr.endTime - curr.startTime);
+        }, 0);
+
+    if (dateRange === undefined) return;
+
+    return dayjs.duration(dateRange).format("HH:mm:ss");
+  };
+
+  const logRange =
+    timeLogValue.timeLogs &&
+    timeLogValue.timeLogs.filter(
+      (timelog) =>
+        dayjs(timelog.startTime).isBetween(
+          Date.now() - 2592000000,
+          Date.now()
+        ) ||
+        dayjs(timelog.endTime).isBetween(Date.now() - 2592000000, Date.now())
+    );
+
+  //   const timeThing = timelogs.filter(
+  //     (time) =>
+  //         dayjs(time.timerStart).isBetween(
+  //             Date.now() - 2592000000,
+  //             Date.now()
+  //         ) ||
+  //         dayjs(time.timerStop).isBetween(Date.now() - 2592000000, Date.now())
+  // );
+
+  //     {timeThing.map((time) => (
+  //       <Accordion.Panel key={time.id}>
+  //           <p>
+  //               {dayjs
+  //                   .duration(time.timerStop - time.timerStart)
+  //                   .format('HH:mm:ss')}
+  //           </p>
+  //           <p>
+  //               {dayjs(time.timerStart).format(
+  //                   'DD/MM/YYYY HH:mm:ss'
+  //               )}
+  //           </p>
+  //           <p>
+  //               {dayjs(time.timerStop).format(
+  //                   'DD/MM/YYYY HH:mm:ss'
+  //               )}
+  //           </p>
+  //           <p>{time.id}</p>
+  //           <p
+  //               style={{ cursor: 'pointer' }}
+  //               onClick={() => handleDelete(time.id)}
+  //           >
+  //               x
+  //           </p>
+  //       </Accordion.Panel>
+  //   ))}
+  // </Accordion.Item>
+  // </Accordion>
+
   return (
     <>
       <AccordionItem>
@@ -28,7 +105,11 @@ const TimelogAmount = () => {
           <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
             <Box flex="1" textAlign="left">
               <Box style={{ display: "flex" }}>
-                <Icon as={GrDrag} w={25} h={25} /> <span>Timelogs</span>
+                <Icon as={GrDrag} w={25} h={25} />{" "}
+                <span>
+                  Timelogs {dayjs(Date.now() - 2592000000).format("YYYY-MM-DD")}{" "}
+                  - {dayjs(Date.now()).format("YYYY-MM-DD")}
+                </span>
               </Box>
             </Box>
             <AccordionIcon />
@@ -41,11 +122,20 @@ const TimelogAmount = () => {
                     <Th>Amount of timelogs</Th>
                   </Tr>
                 </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>{timeLogValue.timeLogs?.length}</Td>
+                <Tbody>
+                  <Tr>
+                    <Td>Total tid: {showDate()}</Td>
+                  </Tr>
+                  {logRange?.map((log) => (
+                    <Tr key={log.id}>
+                      <Td>
+                        {dayjs(log.startTime).format("YYYY-MM-DD,  HH:mm:ss")}
+                      </Td>
+                      <Td>-</Td>
+                      <Td>{dayjs(log.endTime).format("HH:mm:ss")}</Td>
                     </Tr>
-                  </Tbody>
+                  ))}
+                </Tbody>
               </Table>
             </TableContainer>
           </AccordionPanel>
