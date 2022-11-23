@@ -67,7 +67,7 @@ const InvociedYearly = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>{calc ? <Td>{calc()}</Td> : <Td>0</Td>}</Tr>
+                <Tr>{calc ? <Td>{calc()} Kr</Td> : <Td>0</Td>}</Tr>
               </Tbody>
             </Table>
           </TableContainer>

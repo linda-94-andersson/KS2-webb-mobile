@@ -45,7 +45,7 @@ const InvoicesList = () => {
                 <Th>Customer</Th>
                 <Th>Status</Th>
                 <Th>Due date</Th>
-                <Th>Sum</Th>
+                <Th>Sum Kr</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -64,7 +64,7 @@ const InvoicesList = () => {
                 <Th>Customer</Th>
                 <Th>Status</Th>
                 <Th>Due date</Th>
-                <Th>Sum</Th>
+                <Th>Sum Kr</Th>
               </Tr>
             </Tfoot>
           </Table>

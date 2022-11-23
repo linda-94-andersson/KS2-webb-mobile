@@ -32,7 +32,7 @@ const Inputs = ({ setInputRate, inputCustomer, setInputCustomer }: Props) => {
           pointerEvents="none"
           color="gray.300"
           fontSize="1.2em"
-          children="$"
+          children="Kr"
         />
         <Input
           type="number"
