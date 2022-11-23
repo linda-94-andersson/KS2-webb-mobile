@@ -1,12 +1,7 @@
-import React, { FC } from "react";
+import React from "react";
 
-interface Users {
-  id?: string;
-  name?: string;
-}
-
-const Dashboard: FC<Users> = () => {
-  return <div>DashBoard</div>;
+const Dashboard = () => {
+  return <div>Dashboard</div>;
 };
 
 export default Dashboard;
