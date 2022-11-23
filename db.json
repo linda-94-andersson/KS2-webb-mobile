@@ -22,7 +22,7 @@
       "name": "TS-Project",
       "color": "#5de3deff",
       "userId": "71585db0-7ac6-43df-a4ef-2f178803723f",
-      "hourly_rate": 100
+      "hourly_rate": 500
     },
     {
       "id": "1383abcc-761d-41bd-aef0-2ee7675ebcef",
@@ -133,6 +133,14 @@
       "sum": 100.24,
       "customer_name": "Alfred the best",
       "created_date": 1669154303130
+    },
+    {
+      "id": "b87a28e7-e427-4c45-b263-ab6aabbd8b73",
+      "status": "Unpaid",
+      "due_date": 1671798918946,
+      "sum": 11.12,
+      "customer_name": "Marcus",
+      "created_date": 1669206921631
     }
   ]
 }
