@@ -24,7 +24,7 @@
 
 ## En användare ska kunna:
 - Se en lista på tidtagningar de senaste 30 dagarna
-  (Har du byggt in dessa i tasks: tasks som loggat tid de senaste 30 dagarna) ()
+  (Har du byggt in dessa i tasks: tasks som loggat tid de senaste 30 dagarna) (X)
 - Se en lista på alla tidtagningar (X)
 - Se en lista på projekt (X)
 - Se en lista på tasks (X)
@@ -34,11 +34,11 @@
 - Sätta ett timpris på ett projekt (X)
 - Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (X)
 - Se en lista på "fakturor" och status (X)
-- Se en överblicks-sida som visar: ()
+- Se en överblicks-sida som visar: (X)
   - Antal projekt (X)
   - Antal tasks (X)
   - Antal "fakturor" (X)
-  - Tid som loggats de senaste 30 dagarna ()
+  - Tid som loggats de senaste 30 dagarna (X)
   - Antalet kronor som fakturerats det senaste året (X)
 
 ## För att uppnå Godkänt är kraven att:
@@ -46,7 +46,7 @@
 
 - Applikationen ska använda React Context som "Store" för applikations-bred data. (X)
 
-- Samtliga krav under "En användare ska kunna" är uppfyllda. ()
+- Samtliga krav under "En användare ska kunna" är uppfyllda. (X)
 
 - Applikationen ska vara byggd med responsiv design i åtanke. (X)
 
