@@ -35,9 +35,9 @@
 - Skapa en "faktura" för ett valt projekt och välja tasks som "fakturan" ska innehålla (X)
 - Se en lista på "fakturor" och status (X)
 - Se en överblicks-sida som visar: ()
-  - Antal projekt ()
-  - Antal tasks ()
-  - Antal "fakturor" ()
+  - Antal projekt (X)
+  - Antal tasks (X)
+  - Antal "fakturor" (X)
   - Tid som loggats de senaste 30 dagarna ()
   - Antalet kronor som fakturerats det senaste året ()
 
