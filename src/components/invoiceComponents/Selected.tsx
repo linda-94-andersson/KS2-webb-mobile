@@ -18,8 +18,8 @@ dayjs.extend(duration);
 type Props = {
   selectedProject: string;
   setSelectedProject: React.Dispatch<React.SetStateAction<string>>;
-  selectedTask: string[];
-  setSelectedTask: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedTasks: string[];
+  setSelectedTasks: React.Dispatch<React.SetStateAction<string[]>>;
   inputRate: number;
   sum: number | undefined;
   setSum: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -42,8 +42,8 @@ type Task = {
 const Selected = ({
   selectedProject,
   setSelectedProject,
-  selectedTask,
-  setSelectedTask,
+  selectedTasks: selectedTask,
+  setSelectedTasks: setSelectedTask,
   inputRate,
   sum,
   setSum,

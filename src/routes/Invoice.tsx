@@ -16,7 +16,7 @@ dayjs.extend(duration);
 
 const Invoice = () => {
   const [selectedProject, setSelectedProject] = useState("");
-  const [selectedTask, setSelectedTask] = useState<string[]>([]);
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
   const [inputRate, setInputRate] = useState(0);
   const [createDate, setCreateDate] = useState(Date.now);
   const [dueDate, setDueDate] = useState(Date.now);
@@ -30,13 +30,13 @@ const Invoice = () => {
   const generated_id: string = uuid();
 
   function setDates() {
-    if (!selectedTask || !selectedProject) return;
+    if (!selectedTasks || !selectedProject) return;
     const createdDate = () => {
       setCreateDate(Date.now());
       return createDate;
     };
     createdDate();
-    if (!createDate || !selectedTask) return;
+    if (!createDate || !selectedTasks) return;
     const duedDate = () => {
       const sumDate = createDate + 2592000000;
       setDueDate(sumDate);
@@ -47,12 +47,12 @@ const Invoice = () => {
 
   useEffect(() => {
     setDates();
-  }, [selectedTask]);
+  }, [selectedTasks]);
 
   const handleSubmit = async () => {
     if (
       !selectedProject ||
-      !selectedTask ||
+      !selectedTasks ||
       !sum ||
       !createDate ||
       !dueDate ||
@@ -79,7 +79,7 @@ const Invoice = () => {
     setDueDate(Date.now);
     setInputRate(0);
     setInputCustomer("");
-    setSelectedTask([]);
+    setSelectedTasks([]);
     setSelectedProject("");
   };
 
@@ -88,8 +88,8 @@ const Invoice = () => {
       <Selected
         selectedProject={selectedProject}
         setSelectedProject={setSelectedProject}
-        selectedTask={selectedTask}
-        setSelectedTask={setSelectedTask}
+        selectedTasks={selectedTasks}
+        setSelectedTasks={setSelectedTasks}
         inputRate={inputRate}
         sum={sum}
         setSum={setSum}
