@@ -37,3 +37,5 @@ type Invoice = {
   customer_name: string;
   created_date: number;
 };
+
+type MinutePrecision = 1 | 5 | 15 | 30 | 60;
