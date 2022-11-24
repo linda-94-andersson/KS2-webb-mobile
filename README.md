@@ -67,7 +67,7 @@
 - Applikationen ska inte heller innehålla några explicita any. (X)
 
 - Kunna välja att avrunda tiden uppåt på tasks när man skapar en faktura till närmsta [1 min, 5 min, 15 min, 30 min, 1h].
-(Avrundningen ska ske på varje individuell task, inte på hela fakturan) ()
+(Avrundningen ska ske på varje individuell task, inte på hela fakturan) (X)
 
 - Lägg till stöd för drag n drop för att ändra ordningen på överblicks-infon på överblicks-sidan.
 Samt att kunna visa/dölja info-delar på överblicks-sidan. ()
