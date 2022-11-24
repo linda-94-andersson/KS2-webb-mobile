@@ -40,11 +40,11 @@ const TaskAmount = () => {
                     <Th>Amount of tasks</Th>
                   </Tr>
                 </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>{taskValue.tasks?.length}</Td>
-                    </Tr>
-                  </Tbody>
+                <Tbody>
+                  <Tr>
+                    <Td>{taskValue.tasks?.length}</Td>
+                  </Tr>
+                </Tbody>
               </Table>
             </TableContainer>
           </AccordionPanel>

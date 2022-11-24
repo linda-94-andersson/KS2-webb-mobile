@@ -1,7 +1,7 @@
 type Props = {
-    children: ReactNode;
-  };
-  
+  children: ReactNode;
+};
+
 type User = {
   id: string;
   name: string;
@@ -37,4 +37,3 @@ type Invoice = {
   customer_name: string;
   created_date: number;
 };
-  

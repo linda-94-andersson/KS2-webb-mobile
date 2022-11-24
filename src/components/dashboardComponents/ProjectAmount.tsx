@@ -40,11 +40,11 @@ const ProjectAmount = () => {
                     <Th>Amount of projects</Th>
                   </Tr>
                 </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>{projectValue.projects?.length}</Td>
-                    </Tr>
-                  </Tbody>
+                <Tbody>
+                  <Tr>
+                    <Td>{projectValue.projects?.length}</Td>
+                  </Tr>
+                </Tbody>
               </Table>
             </TableContainer>
           </AccordionPanel>
