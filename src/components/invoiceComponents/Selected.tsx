@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Checkbox,
-  FormControl,
   FormLabel,
   Select,
   Stack,
   Box,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import { useProject } from "../../context/ProjectContext";
 import { useTask } from "../../context/TaskContext";
 import { useTimeLog } from "../../context/TimelogContext";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { getTotalDuration, roundDurationMinutes } from "../../utils";
 
 dayjs.extend(duration);
 
@@ -38,26 +40,50 @@ const Selected = ({
   const { taskValue } = useTask();
   const { timeLogValue } = useTimeLog();
 
+  const [totalHours, setTotalHours] = useState(0);
+  const [roundedHours, setRoundedHours] = useState(0);
+  const [roundPrecision, setRoundPrecision] = useState<MinutePrecision | 0>(0);
+
   useEffect(() => {
     if (!timeLogValue.timeLogs || !projectValue.projects) return;
 
-    const totalTime = timeLogValue.timeLogs
-      .filter((timeLog) =>
-        selectedTask.some((taskId) => taskId === timeLog.taskId)
-      )
-      .map((timeLog) =>
-        dayjs.duration(timeLog.endTime - timeLog.startTime).asHours()
-      )
-      .reduce((acc, sum) => acc + sum, 0);
+    const filteredLogs = timeLogValue.timeLogs.filter((timeLog) =>
+      selectedTask.some((taskId) => taskId === timeLog.taskId)
+    );
+    const totalTime = dayjs.duration(getTotalDuration(filteredLogs)).asHours();
 
+    setTotalHours(totalTime);
+  }, [selectedTask, selectedProject]);
+
+  useEffect(() => {
     const hourlyRate = inputRate;
 
-    const calcPrize = (hourlyRate as number) * totalTime;
+    const calcPrize = hourlyRate * roundedHours;
 
     setSum(Math.round(calcPrize * 100) / 100);
-  }, [selectedTask, selectedProject, inputRate]);
+  }, [roundedHours, inputRate]);
 
-  // 1 = 1h 0.5 = 30min 0.25 = 15min 0.083 = 5min 0.016 = 1min
+  useEffect(() => {
+    setRoundedHours(
+      !roundPrecision
+        ? totalHours
+        : roundDurationMinutes(totalHours, roundPrecision)
+    );
+  }, [totalHours, roundPrecision]);
+
+  const handleSelectRound = (value: string) => {
+    const num = parseInt(value);
+    if (
+      num === 0 ||
+      num === 1 ||
+      num === 5 ||
+      num === 15 ||
+      num === 30 ||
+      num === 60
+    ) {
+      setRoundPrecision(num);
+    }
+  };
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
@@ -75,7 +101,7 @@ const Selected = ({
   };
 
   return (
-    <FormControl isRequired>
+    <>
       <FormLabel></FormLabel>
       <Select
         required
@@ -115,6 +141,17 @@ const Selected = ({
                     </Checkbox>
                   ))}
             </Stack>
+            <br />
+            <RadioGroup onChange={handleSelectRound} value={roundPrecision}>
+              <Stack direction="row">
+                <Radio value={0}>Not rounded</Radio>
+                <Radio value={1}>1</Radio>
+                <Radio value={5}>5</Radio>
+                <Radio value={15}>15</Radio>
+                <Radio value={30}>30</Radio>
+                <Radio value={60}>60</Radio>
+              </Stack>
+            </RadioGroup>
           </Box>
         </>
       ) : (
@@ -139,7 +176,7 @@ const Selected = ({
           </Box>
         </>
       )}
-    </FormControl>
+    </>
   );
 };
 

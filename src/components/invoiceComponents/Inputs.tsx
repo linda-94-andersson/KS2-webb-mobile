@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FormControl,
   Input,
   FormLabel,
   InputGroup,
@@ -25,7 +24,7 @@ const Inputs = ({ setInputRate, inputCustomer, setInputCustomer }: Props) => {
   };
 
   return (
-    <FormControl isRequired>
+    <>
       <FormLabel></FormLabel>
       <InputGroup>
         <InputLeftElement
@@ -48,7 +47,7 @@ const Inputs = ({ setInputRate, inputCustomer, setInputCustomer }: Props) => {
         onChange={handleInputCustomer}
         value={inputCustomer}
       />
-    </FormControl>
+    </>
   );
 };
 
