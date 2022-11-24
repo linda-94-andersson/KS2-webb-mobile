@@ -25,20 +25,6 @@ type Props = {
   setSum: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
-type Project = {
-  id: string;
-  name: string;
-  color: string;
-  userId: string;
-  hourly_rate?: number;
-};
-
-type Task = {
-  id: string;
-  name: string;
-  projectId: string;
-};
-
 const Selected = ({
   selectedProject,
   setSelectedProject,
@@ -70,6 +56,8 @@ const Selected = ({
 
     setSum(Math.round(calcPrize * 100) / 100);
   }, [selectedTask, selectedProject, inputRate]);
+
+  // 1 = 1h 0.5 = 30min 0.25 = 15min 0.083 = 5min 0.016 = 1min
 
   const handleSelectedProject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProject(e.target.value);
