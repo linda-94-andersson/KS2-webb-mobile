@@ -12,7 +12,7 @@ type Project = {
   name: string;
   color: string;
   userId: string;
-  hourly_rate?: number;
+  hourly_rate: number;
 };
 
 type Task = {

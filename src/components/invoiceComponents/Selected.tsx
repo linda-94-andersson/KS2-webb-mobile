@@ -56,12 +56,16 @@ const Selected = ({
   }, [selectedTask, selectedProject]);
 
   useEffect(() => {
-    const hourlyRate = inputRate;
+    const projectRate =
+      projectValue.projects &&
+      projectValue.projects.find((project) => project.id === selectedProject);
+
+    const hourlyRate = projectRate?.hourly_rate || inputRate;
 
     const calcPrize = hourlyRate * roundedHours;
 
     setSum(Math.round(calcPrize * 100) / 100);
-  }, [roundedHours, inputRate]);
+  }, [roundedHours, inputRate, projectValue.projects]);
 
   useEffect(() => {
     setRoundedHours(
