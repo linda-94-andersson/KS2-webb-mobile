@@ -73,5 +73,5 @@
 Samt att kunna visa/dölja info-delar på överblicks-sidan. ()
 
 - Skapa grafer på överblicks-infon för att visa: ()
-  - En "Line chart" som visar totala mängden tid som loggats de senaste 7 dagarna ()
+  - En "Line chart" som visar totala mängden tid som loggats de senaste 7 dagarna (X)
   - Valfri chart som visar beloppet som fakturerats i år (per månad) ()

@@ -6,6 +6,8 @@ import TimelogAmount from "../components/dashboardComponents/TimelogAmount";
 import UserAmount from "../components/dashboardComponents/UserAmount";
 import { Accordion } from "@chakra-ui/react";
 import InvociedYearly from "../components/dashboardComponents/InvociedYearly";
+import LineChart from "../components/dashboardComponents/LineChart";
+import BlockChart from "../components/dashboardComponents/BlockChart";
 
 const Dashboard = () => {
   return (
@@ -17,6 +19,8 @@ const Dashboard = () => {
         <TimelogAmount />
         <InvoiceAmount />
         <InvociedYearly />
+        <LineChart />
+        <BlockChart />
       </Accordion>
     </div>
   );
