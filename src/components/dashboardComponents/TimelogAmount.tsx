@@ -67,7 +67,7 @@ const TimelogAmount = () => {
           <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
             <Box flex="1" textAlign="left">
               <Box style={{ display: "flex" }}>
-                <Icon as={GrDrag} w={25} h={25} />{" "}
+                {/* <Icon as={GrDrag} w={25} h={25} />{" "} */}
                 <span>
                   Timelogs {dayjs(Date.now() - 2592000000).format("YYYY-MM-DD")}{" "}
                   - {dayjs(Date.now()).format("YYYY-MM-DD")}

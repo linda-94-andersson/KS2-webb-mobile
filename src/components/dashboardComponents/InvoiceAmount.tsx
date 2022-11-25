@@ -25,7 +25,8 @@ const InvoiceAmount = () => {
         <AccordionButton _expanded={{ bg: "#4299E1", color: "white" }}>
           <Box flex="1" textAlign="left">
             <Box style={{ display: "flex" }}>
-              <Icon as={GrDrag} w={25} h={25} /> <span>Invoices</span>
+              {/* <Icon as={GrDrag} w={25} h={25} />{" "} */}
+              <span>Invoices</span>
             </Box>
           </Box>
           <AccordionIcon />
