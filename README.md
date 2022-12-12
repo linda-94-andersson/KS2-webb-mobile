@@ -11,9 +11,15 @@
   ```
 
 ## Skills used for this project
-* WORK IN PROGRESS
 * React
+* React Context
 * Typescript
+* Javascript
+* JSON
+* .env
+* Chakra-ui
+* Dayjs
+* Axios
 * CSS
 * HTML 
 * Vite
